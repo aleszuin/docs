@@ -23,6 +23,7 @@ When the blue dialog appears enter a password for root user, note the password d
     $ sudo nano /etc/apache2/sites-enabled/000-default
 
 Change (line 7 and line 11), "AllowOverride None" to "AllowOverride All".
+That is the sections <Directory /> and <Directory /var/www/>.
 [Ctrl + X ] then [Y] then [Enter] to Save and exit.
 
 #### 5) That completes the server installation, restart the server to make everything above operational:
@@ -43,7 +44,7 @@ First cd into the var directory:
 
 Set the permissions of the www directory to be owned by your username (on the raspberrypi its pi):
 
-    $ sudo chown pi www
+    $ sudo chown $USER www
 
 Cd into www directory
 
