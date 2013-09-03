@@ -1,6 +1,6 @@
 ## Emoncms on the Raspberry PI - Build from scratch
 
-Download Raspbian 'Wheezy' SD card image [here](www.raspberrypi.org/downloads) (This guide was made using 9th February 2013 release). Extract the image.
+Download Raspbian 'Wheezy' SD card image [here](http://www.raspberrypi.org/downloads) (This guide was made using 9th February 2013 release). Extract the image.
 
 ### Write image to an SD card (Linux)
 
@@ -294,7 +294,7 @@ To complete all of the above reboot the pi
 
 The first time you run emoncms it will automatically setup the database and you will be taken straight to the login screen. 
 
-Login with username **raspi** and password **raspberry**
+Create a new user via the register tab.
 
 
 ### Optional

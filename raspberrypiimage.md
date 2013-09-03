@@ -56,11 +56,8 @@ Locate the directory of your downloaded emoncms image in terminal and write it t
 
 <div class='alert alert-error'><i class='icon-fire'></i> <b>Warning:</b> take care with running the following command that your pointing at the right drive! If you point at your computer drive you will loose a lot of data!</div>
 
-    $ sudo dd bs=4M if=emoncmspiv5avr_19-05-13.img of=/dev/sdb 
-    
-or for the older image:
+    $ sudo dd bs=4M if=emoncmspiv5avr_2may.img of=/dev/sdb  
 
-    $ sudo dd bs=4M if=emoncmspiv5avr.img of=/dev/sdb
 
 <br>
 #### 3) Intall RFM12Pi
@@ -69,13 +66,6 @@ Install RFM12Pi hardware expansion module onto the Pi's GPIO pins taking care to
 #### 4) Power it up!
 
 That's it all you need to do now is insert the SD card in the pi, connect ethernet and power it up! Access the PI via your internet browser in the same way as you would access your home router. You can usually find the ip address of the PI by looking at the DHCP table in your router. Alternatively, you can use a network scanning app such as Fing (android), iNet (Mac), iNet (iPhone) to scan your network.
-If you're running the latest image (19/04/13) the host name of the Pi is emoncmspi. You should be able to access the emoncms login on the Pi by browsing to 
-    
-    http://emoncmspi
-    
-ssh should also be possible using the host name 
-
-    $ ssh pi@emoncmspi
     
 Return to the OpenEnergyMonitor Guide to setup your sensor nodes and map the inputs in emoncms: http://openenergymonitor.org/emon/guide
 
