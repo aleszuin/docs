@@ -252,7 +252,7 @@ To complete all of the above reboot the pi
 
 The first time you run emoncms it will automatically setup the database and you will be taken straight to the login screen. 
 
-Login with username **raspi** and password **raspberry**
+Create a new user via the register tab.
 
 
 ### Optional
