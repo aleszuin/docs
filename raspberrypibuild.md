@@ -120,7 +120,7 @@ Timestore is a recent update to emoncms, you may also wish to check the readme a
     https://github.com/emoncms/emoncms
     http://openenergymonitor.org/emon/node/2651
 
-## 1) Download, make and start timestore
+Download, make and start timestore
 
     cd /home/pi
     git clone https://github.com/TrystanLea/timestore
@@ -219,6 +219,7 @@ Enter in your database settings.
     $password = "raspberry";
     $server   = "localhost";
     $database = "emoncms";
+    $timestore_adminkey = "TIMESTORE ADMINKEY AS ABOVE"
 
 Save (Ctrl-X), type Y and exit
 
