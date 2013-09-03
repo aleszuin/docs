@@ -71,6 +71,48 @@ When the blue dialog appears enter a password for root user, note the password d
 Change (line 7 and line 11), "AllowOverride None" to "AllowOverride All".
 [Ctrl + X ] then [Y] then [Enter] to Save and exit.
 
+#### Turn off apache logs
+
+To prolong the life of the raspberrypi SD card its a good idea to turn off all apache logging, logging can be turned on when needed for debugging.
+
+There are 3 different files that need to be edited to turn off all apache logging:
+
+1) In apache2.conf:
+
+    sudo nano /etc/apache2/apache2.conf
+
+Replace the ErrorLog line:
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+
+with:
+
+    ErrorLog /dev/null
+
+Comment out the line:
+
+    # LogLevel warn
+
+2) In /etc/apache2/conf.d/other-vhosts-access-log
+
+    sudo nano /etc/apache2/conf.d/other-vhosts-access-log
+
+Comment out:
+
+    # CustomLog ${APACHE_LOG_DIR}/other_vhosts_access.log vhost_combined
+
+3) In /etc/apache2/sites-enabled/000-default
+
+    $ sudo nano /etc/apache2/sites-enabled/000-default
+
+Comment out:
+
+    # ErrorLog ${APACHE_LOG_DIR}/error.log
+    # LogLevel warn
+    # CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+The latest version of the rfm12piphp bash script detailed below also has logging turned off as default.
+
 ### Installing emoncms:
 
 #### 6) Install git (recommended but optional)
