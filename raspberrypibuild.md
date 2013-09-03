@@ -113,6 +113,43 @@ Comment out:
 
 The latest version of the rfm12piphp bash script detailed below also has logging turned off as default.
 
+#### Install the timestore database
+
+Timestore is a recent update to emoncms, you may also wish to check the readme and timestore forum discussion here:
+
+    https://github.com/emoncms/emoncms
+    http://openenergymonitor.org/emon/node/2651
+
+## 1) Download, make and start timestore
+
+    cd /home/pi
+    git clone https://github.com/TrystanLea/timestore
+    cd timestore
+    sudo sh install
+    
+**Note the adminkey** at the end as you will want to paste this into the emoncms settings.php file.
+
+If the adminkey could not be found, it may be that timestore failed to start:
+
+To check if timestore is running type:
+
+    sudo /etc/init.d/timestore status
+    
+Start, stop and restart it with:
+
+    sudo /etc/init.d/timestore start
+    sudo /etc/init.d/timestore stop
+    sudo /etc/init.d/timestore restart
+    
+To read the adminkey manually type:
+
+    cat /var/lib/timestore/adminkey.txt
+
+
+#### Install php5-curl (needed for timestore)
+
+    sudo apt-get install php5-curl
+
 ### Installing emoncms:
 
 #### 6) Install git (recommended but optional)
