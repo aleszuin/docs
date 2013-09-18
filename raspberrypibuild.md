@@ -36,7 +36,7 @@ Once complete insert the SD card into the PI and connect ethernet and power. All
 
 The next step is to connect to your PI via SSH from your computer, to do this find the ip address of the PI on your local network, then using linux terminal run:
 
-    $ SSH pi@xxx.xxx.xxx.xxx
+    $ sash pi@xxx.xxx.xxx.xxx
 
 On windows you can do the above step with a nice bit of software called putty. Once you make the connection request the PI will ask for a password. The default password is 'raspberry'.
 
@@ -272,8 +272,8 @@ Create new file with extension needed by rfm12pi service
 
 and put there two lines line 
 
-    $;Dynamic Extension needed by Rfm12pi
-    $extension=dio.so
+    ;Dynamic Extension needed by Rfm12pi
+    extension=dio.so
 
 [Ctrl+X] then [y] then [Enter] to save and exit
 
