@@ -15,18 +15,20 @@ Check that the database settings in settings.php are correct and that the databa
 It is because the database schema needs to be updated. Open emoncms in your browser and login with the admin user - this will be the first user you created. Then navigate to the Admin tab (top-right). Click 'Update & check' this will update your database. If the error prevents you from doing this, open index.php in a text editor and add the line: db_schema_setup(load_db_schema()); just above require("Modules/user/user_model.php"); If you go to emoncms again in your broser the error should now have disappeared. Remove the line once you have finished.
 
 
-### Browser compatibility
+<div class='alert alert-info'>
 
-**Chrome Ubuntu Linux -** works, no issues (this is the browser it is developed on)
+<h3>Note: Browser Compatibility</h3>
 
-**Firefox Ubuntu Linux -** works, no issues
+<p><b>Chrome Ubuntu 23.0.1271.97</b> - developed with, works great.</p>
 
-**Internet explorer 9 Windows -** You may need to turn off compatibility mode to make it work, no issues with compatibility mode off.
+<p><b>Chrome Windows 25.0.1364.172</b> - quick check revealed no browser specific bugs.</p>
 
-**Chrome Windows -** works, no issues
+<p><b>Firefox Ubuntu 15.0.1</b> - no critical browser specific bugs, but movement in the dashboard editor is much less smooth than chrome.</p>
 
-**Chrome Mac -** ?
+<p><b>Internet explorer 9</b> - works well with compatibility mode turned off. F12 Development tools -> browser mode: IE9. Some widgets such as the hot water cylinder do load later than the dial.</p>
 
-**Safari Mac -** ? dashboard + buggy?
+<p><b>IE 8, 7</b> - not recommended, widgets and dashboard editor <b>do not work</b> due to no html5 canvas fix implemented but visualisations do work as these have a fix applied.</p>
+
+</div>
 
 

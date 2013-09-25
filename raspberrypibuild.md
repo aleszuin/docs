@@ -1,8 +1,8 @@
-## Emoncms on the Raspberry PI - Build from scratch
+# Emoncms on the Raspberry PI - Build from scratch
 
 Download Raspbian 'Wheezy' SD card image [here](http://www.raspberrypi.org/downloads) (This guide was made using 9th February 2013 release). Extract the image.
 
-### Write image to an SD card (Linux)
+## 1) Write image to an SD card (Linux)
 
 Start by inserting your SD card, your distribution should mount it automatically so the first step is to unmount the SD card and make a note of the SD card device name, to view mounted disks and partitions run:
 
@@ -44,194 +44,35 @@ Now that you have your RaspberryPi up and working, we are now going to install t
 
     $ sudo apt-get update
 
-### Apache, Mysql and PHP
+## 2) Follow Install on Linux guide
 
-This installation guide was create when installing emoncms on the PI with a blank install of raspbian “wheezy”, however as the raspbian wheezy is based on debian this guide should work on most debian systems including Ubuntu.
+Follow steps 1 to 6 of the installing emoncms on linux installation guide
 
-#### 1) Install mysql
+The raspberrypi user is called pi (needed for step 1 and 4)
 
-    $ sudo apt-get install mysql-server mysql-client
+### [Install on Linux](http://emoncms.org/site/docs/installlinux)
 
-When the blue dialog appears enter a password for root user, note the password down as you will need it later.
+## 3) Install the raspberrypi module
 
-#### 2) Install apache2
-
-    $ sudo apt-get install apache2
-
-#### 3) Install php
-
-    $ sudo apt-get install php5 libapache2-mod-php5
-    $ sudo apt-get install php5-mysql
-
-#### 4) Enable mod rewrite
-
-    $ sudo a2enmod rewrite
-    $ sudo nano /etc/apache2/sites-enabled/000-default
-
-Change (line 7 and line 11), "AllowOverride None" to "AllowOverride All".
-[Ctrl + X ] then [Y] then [Enter] to Save and exit.
-
-#### Turn off apache logs
-
-To prolong the life of the raspberrypi SD card its a good idea to turn off all apache logging, logging can be turned on when needed for debugging.
-
-There are 3 different files that need to be edited to turn off all apache logging:
-
-1) In apache2.conf:
-
-    sudo nano /etc/apache2/apache2.conf
-
-Replace the ErrorLog line:
-
-    ErrorLog ${APACHE_LOG_DIR}/error.log
-
-with:
-
-    ErrorLog /dev/null
-
-Comment out the line:
-
-    # LogLevel warn
-
-2) In /etc/apache2/conf.d/other-vhosts-access-log
-
-    sudo nano /etc/apache2/conf.d/other-vhosts-access-log
-
-Comment out:
-
-    # CustomLog ${APACHE_LOG_DIR}/other_vhosts_access.log vhost_combined
-
-3) In /etc/apache2/sites-enabled/000-default
-
-    $ sudo nano /etc/apache2/sites-enabled/000-default
-
-Comment out:
-
-    # ErrorLog ${APACHE_LOG_DIR}/error.log
-    # LogLevel warn
-    # CustomLog ${APACHE_LOG_DIR}/access.log combined
-
-The latest version of the rfm12piphp bash script detailed below also has logging turned off as default.
-
-#### Install the timestore database
-
-Timestore is a recent update to emoncms, you may also wish to check the readme and timestore forum discussion here:
-
-    https://github.com/emoncms/emoncms
-    http://openenergymonitor.org/emon/node/2651
-
-Download, make and start timestore
-
-    cd /home/pi
-    git clone https://github.com/TrystanLea/timestore
-    cd timestore
-    sudo sh install
-    
-**Note the adminkey** at the end as you will want to paste this into the emoncms settings.php file.
-
-If the adminkey could not be found, it may be that timestore failed to start:
-
-To check if timestore is running type:
-
-    sudo /etc/init.d/timestore status
-    
-Start, stop and restart it with:
-
-    sudo /etc/init.d/timestore start
-    sudo /etc/init.d/timestore stop
-    sudo /etc/init.d/timestore restart
-    
-To read the adminkey manually type:
-
-    cat /var/lib/timestore/adminkey.txt
-
-
-#### Install php5-curl (needed for timestore)
-
-    sudo apt-get install php5-curl
-
-### Installing emoncms:
-
-#### 6) Install git (recommended but optional)
-
-    $ sudo apt-get install git-core
-
-#### 7) Download Emoncms
-
-First cd into the var directory:
-
-    $ cd /var/
-
-Set the permissions of the www directory to be owned by the pi username:
-
-    $ sudo chown pi www
-
-Cd into www directory
-
-    $ cd www
-
-Download emoncms using git:
-
-    $ git clone https://github.com/emoncms/emoncms.git
-
-<div class='alert'><b>Note:</b> Be aware that installing Emoncms to any directory other than /var/www/ will break the data import scripts. (see http://openenergymonitor.org/emon/node/1329#comment-7526).</div>
-
-#### 8) Install the raspberrypi module
-
-Navigate to the emoncms modules folder 
+Navigate to the emoncms modules folder
 
     $ cd /var/www/emoncms/Modules 
-
-Download the Raspberry Pi emoncms module into the Modules folder using git: 
+    
+Download the Raspberry Pi emoncms module into the Modules folder using git:
 
     $ git clone https://github.com/emoncms/raspberrypi.git
+    
+If you have already loaded emoncms in your browser prior to installing the raspberrypi module you will need to run the database updater via the Admin tab once you log in to emoncms so that emoncms creates the raspberrypi module table. You can wait to do this at the end if you wish.
 
-#### 8) Create a MYSQL database
-
-    $ mysql -u root -p
-
-Enter the mysql password that you set above.
-Then enter the sql to create a database:
-
-    mysql> CREATE DATABASE emoncms;
-
-Exit mysql by:
-
-    mysql> exit
-
-#### 9) Set emoncms database settings.
-
-cd into the emoncms directory where the settings file is located
-
-    $ cd /var/www/emoncms/
-
-Make a copy of default.settings.php and call it settings.php
-
-    $ cp default.settings.php settings.php
-
-Open settings.php in an editor, nano works great on the pi:
-
-    $ nano settings.php
-
-Enter in your database settings.
-
-    $username = "root";
-    $password = "raspberry";
-    $server   = "localhost";
-    $database = "emoncms";
-    $timestore_adminkey = "TIMESTORE ADMINKEY AS ABOVE"
-
-Save (Ctrl-X), type Y and exit
-
-### RFM12BPi Setup
+## 4) RFM12Pi Setup
 
 Make sure your Raspberry Pi’s UART is disconnected from the console and available for programs to use.
 
-#### 1) Backup cmdline.txt: 
+#### a) Backup cmdline.txt: 
 
     $ sudo cp /boot/cmdline.txt /boot/cmdline_backup.txt
 
-#### 2) Edit cmdline.txt to remove references to Pi’s UART (ttyAMA0)
+#### b) Edit cmdline.txt to remove references to Pi’s UART (ttyAMA0)
 
     $ sudo nano /boot/cmdline.txt
 
@@ -245,7 +86,7 @@ to
 
 [Ctrl+X] then [y] then [Enter] to save and exit
 
-#### 3) Edit inittab
+#### c) Edit inittab
 
     $ sudo nano /etc/inittab 
 
@@ -255,7 +96,7 @@ At the bottom of the file comment out the line (by adding a '#' at begining)
 
 [Ctrl+X] then [y] then [Enter] to save and exit
 
-### Install rfm12pi gateway service
+## 5) Install rfm12pi gateway service
 
 Install one of the two available gateway scripts and let them run on startup. The PHP gateway is the latest and greatest:
 
@@ -303,14 +144,56 @@ Install rfm12piphp gateway service:
     $ sudo cp /var/www/emoncms/Modules/raspberrypi/rfm2pigateway.init.dist /etc/init.d/rfm2pigateway
     $ sudo chmod 755 /etc/init.d/rfm2pigateway
     $ sudo update-rc.d rfm2pigateway defaults 99
+    
+## 6) Turn off apache logs
 
-### Reboot
+To prolong the life of the raspberrypi SD card its a good idea to turn off all apache logging, logging can be turned on when needed for debugging.
+
+There are 3 different files that need to be edited to turn off all apache logging:
+
+1) In apache2.conf:
+
+    sudo nano /etc/apache2/apache2.conf
+
+Replace the ErrorLog line:
+
+    ErrorLog ${APACHE_LOG_DIR}/error.log
+
+with:
+
+    ErrorLog /dev/null
+
+Comment out the line:
+
+    # LogLevel warn
+
+2) In /etc/apache2/conf.d/other-vhosts-access-log
+
+    sudo nano /etc/apache2/conf.d/other-vhosts-access-log
+
+Comment out:
+
+    # CustomLog ${APACHE_LOG_DIR}/other_vhosts_access.log vhost_combined
+
+3) In /etc/apache2/sites-enabled/000-default
+
+    $ sudo nano /etc/apache2/sites-enabled/000-default
+
+Comment out:
+
+    # ErrorLog ${APACHE_LOG_DIR}/error.log
+    # LogLevel warn
+    # CustomLog ${APACHE_LOG_DIR}/access.log combined
+
+The latest version of the rfm12piphp bash script detailed above also has logging turned off as default.
+
+## 7) Reboot
 
 To complete all of the above reboot the pi
 
     $ sudo reboot
 
-#### 10) In an internet browser on the local ntwork, load emoncms by browsing to the Pi's IP address:
+## 8) In an internet browser on the local network, load emoncms by browsing to the Pi's IP address:
 
 <div class='alert alert-info'>
 
@@ -335,7 +218,7 @@ The first time you run emoncms it will automatically setup the database and you 
 Create a new user via the register tab.
 
 
-### Optional
+## Optional
 
 If your SD Card is larger than 4GB you may want to expand the partition to fill the disk, this can be done easily with the raspi-config utility:
 
