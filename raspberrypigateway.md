@@ -84,9 +84,9 @@ The second part to configure is the apikey of your remote server account, if its
 
 ## 4) Plug in the RFM12Pi Expansion module
 
-PLug the RFM12Pi hardware expansion module onto the Pi's GPIO pins taking care to align up pin 1.
+PLug the RFM12Pi hardware expansion module onto the Pi's GPIO pins taking care to align up pin 1, the RFM12Pi should be connected to the GPIO pins connector closest to the edge of the pi. 
 
-Its best to plug in the RFM12Pi before you power up the Pi, as the Pi sends configuration settings to the RFM12Pi on bootup.
+It's best to plug in the RFM12Pi before you power up the Pi, as the Pi sends configuration settings to the RFM12Pi on bootup.
 
 ## 5) Power it up!
 
@@ -94,3 +94,60 @@ Thats it, if you have sensor nodes sending data, inputs should start appearing i
 
 Return to the OpenEnergyMonitor Guide to setup your sensor nodes and map the inputs in emoncms: 
 [http://openenergymonitor.org/emon/guide](http://openenergymonitor.org/emon/guide)
+
+
+## Recommended Steps
+
+We recomend you change the default password for the Pi. To do this we need to take control of the Pi over SSH. The are many tutorials on how to SSH into a pi on the interent, here we will assume you are using a linux terminal. The default username and password is 'root' and root':
+
+	$ ssh root@oemgateway
+	password: root 
+
+The hostname 'oemgateway' usually works on most network configuritions, if you have trouble connecting try the Pi's local IP address (obtained from your router) instead. Once logged in the first recomended step is to change the password:
+
+	$ passwd 
+
+and set your timezone, the default in Europe/London
+
+	$ dpkg-reconfigure tzdata
+
+## Troubleshooting 
+
+The first point of call for troubleshooting is to view the output of the python oem_gateway script. This is set to run at boot as a background task. To view the output of the script we first need to kill it:
+
+	$ ps -ef | grep python
+
+will return something like this:
+
+![pythonPID](files/pythonPID.png)
+
+We are looking for the process ID of the python script (PID) in my case this is '1119'. 
+
+
+
+We can now kill this process with the line, replacing 1119 with the PID of your python script process:
+
+	$ kill -9 1119
+
+To restart the script as a foreground process so we can view it's output run 
+
+	$ python /root/oem_gateway/oemgateway.py --config-file /boot/oemgateway.conf
+
+You should now see output like the following
+
+![oem_gateway_debug](files/oem_gateway_debug.png)
+
+"DEBUG Serial Rx: " followed by a string of numbers means data has been received from another node, this should be followed by
+"DEBUG Node: 10" this means data has been received from Node with ID 10 (by default this is an emonTx), see below for default node ID allocation
+"DEBUG Send ok" means the data has been succesfully posted to emoncms
+
+### Referance 
+
+While debugging it might be handy to know the default RFM12B node ID allocation we try and stick to:
+0	 Special allocation in JeeLib RFM12 driver - reserved for OOK use
+1-4      Control nodes 
+5-10	 Energy monitoring nodes
+11-14	 --Un-assigned --
+15-16	 Base Station & logging nodes
+17-30	 Environmental sensing nodes (temperature humidity etc.)
+31	 Special allocation in JeeLib RFM12 driver - Node31 can communicate with nodes on any network group
