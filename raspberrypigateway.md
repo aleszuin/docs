@@ -123,8 +123,6 @@ will return something like this:
 
 We are looking for the process ID of the python script (PID) in my case this is '1119'. 
 
-
-
 We can now kill this process with the line, replacing 1119 with the PID of your python script process:
 
 	$ kill -9 1119
@@ -138,16 +136,14 @@ You should now see output like the following
 ![oem_gateway_debug](files/oem_gateway_debug.png)
 
 "DEBUG Serial Rx: " followed by a string of numbers means data has been received from another node, this should be followed by
-"DEBUG Node: 10" this means data has been received from Node with ID 10 (by default this is an emonTx), see below for default node ID allocation
+
+"DEBUG Node: 10" this means data has been received from Node with ID 10 (by default this is an emonTx), see bottom of [this page](http://openenergymonitor.org/emon/buildingblocks/rfm12b2) for default node ID allocation
+
 "DEBUG Send ok" means the data has been succesfully posted to emoncms
 
-### Referance 
+To stop the script hit [CTRL + C]
 
-While debugging it might be handy to know the default RFM12B node ID allocation we try and stick to:
-0	 Special allocation in JeeLib RFM12 driver - reserved for OOK use
-1-4      Control nodes 
-5-10	 Energy monitoring nodes
-11-14	 --Un-assigned --
-15-16	 Base Station & logging nodes
-17-30	 Environmental sensing nodes (temperature humidity etc.)
-31	 Special allocation in JeeLib RFM12 driver - Node31 can communicate with nodes on any network group
+To restart the script as a background process it's easiest just to reboot the Pi
+
+	$ sudo reboot
+
