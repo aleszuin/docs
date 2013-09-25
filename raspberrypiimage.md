@@ -22,9 +22,6 @@
 [Torrent Download](http://torcache.net/torrent/AED670234438B2DDB7FC4842F429041F31696693.torrent) -please help seed, more info [here](http://openenergymonitor.org/emon/node/2278)
 
 
-
-
-
 The image need a minimum SD card size of 4GB. On a 4GB card 1.5GB is free for data storage. If you're card it larger than 4GB you can expand the partition by running **$ sudo raspi-config** once your're up and running
 
 
@@ -68,8 +65,6 @@ Install RFM12Pi hardware expansion module onto the Pi's GPIO pins taking care to
 That's it all you need to do now is insert the SD card in the pi, connect ethernet and power it up! Access the PI via your internet browser in the same way as you would access your home router. You can usually find the ip address of the PI by looking at the DHCP table in your router. Alternatively, you can use a network scanning app such as Fing (android), iNet (Mac), iNet (iPhone) to scan your network.
     
 Return to the OpenEnergyMonitor Guide to setup your sensor nodes and map the inputs in emoncms: http://openenergymonitor.org/emon/guide
-
-The image 
 
 <div class='alert alert-info'>
 

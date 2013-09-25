@@ -26,6 +26,10 @@ Any further login queries please contact trystanlea@openenergymonitor.org
 
 ---
 
+#### September 2013
+
+Emoncms.org is on the latest emoncms master branch with timestore enabled. 
+
 #### 16th March 2013
 
 Emoncms.org has just been upgraded to latest development branch of emoncms https://github.com/emoncms/emoncms/tree/dev, there are known issues with dashboard (fixed?) and multigraph which are being worked on, notice any other bugs please email me: trystanlea@openenergymonitor.org. If the accounts page is empty, try refreshing your browser cache.

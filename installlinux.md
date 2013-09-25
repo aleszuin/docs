@@ -35,8 +35,10 @@ To select either MYSQL or PHPTimeSeries instead of timestore as your default eng
 or: 
 
     $default_engine = Engine::PHPTIMESERIES;
-
+    
 If you do not wish to use timestore you can skip to step 2 of the installation process.
+
+If you want to try PHPTimeSeries see optional PHPTimeSeries step below.
 
 ## 1) Download, make and start timestore
 
@@ -62,6 +64,13 @@ Start, stop and restart it with:
 To read the adminkey manually type:
 
     cat /var/lib/timestore/adminkey.txt
+    
+## (Optional) Create PHPTimeSeries data folder
+
+If you wish to try the phptimeseries engine:
+
+    sudo mkdir /var/lib/phptimeseries
+    sudo chown www-data:root /var/lib/phptimeseries
 
 ## 2) Install Apache, Mysql and PHP (LAMP Server)
     
