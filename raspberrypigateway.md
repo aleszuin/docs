@@ -77,6 +77,13 @@ Open oemgateway.conf found in the SD Card boot partition:
 
 ![Boot partition](files/rpigatewayboot.png)
 
+Mac OSX
+
+To see the boot partition on a Mac you will need to install the following software: OSXFuse [http://osxfuse.github.io](http://osxfuse.github.io) .  
+This gives the Mac the ability to read and write to other filesystems, and and fuse-ext2 [http://sourceforge.net/projects/fuse-ext2](http://sourceforge.net/projects/fuse-ext2/) which includes the linux files sytem the card is now in.
+After installing the drive will appear on your desktop allowing you to view an equivalent window to the one above.
+
+
 The first part to configure it the group and frequency of the rfm12pi.
 The group and frequency set here needs to be the same as used on any sensor nodes.
 
