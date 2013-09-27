@@ -12,9 +12,15 @@ It uses Jerome Lafréchoux's exellent python oem_gateway to forward the data to 
 
 ## 1) Download the ready-to-go SD card image:
 
-Download pre-prepared image:
+Download pre-prepared 2GB SD card image:
 
-#### [oem_gateway24sep2013.img.zip](https://docs.google.com/file/d/0B7G0lHyW4GQbNWFHRXhUdHg1bGs/edit?usp=sharing)
+#### [oem_gateway24sep2013.img.zip (511Mb)]
+
+[Download Link 1](https://docs.google.com/file/d/0B7G0lHyW4GQbNWFHRXhUdHg1bGs/edit?usp=sharing)
+[Download Link 2])(https://dl.dropboxusercontent.com/s/3mxa537s3a04wjc/oem_gateway24sep2013.img.zip?token_hash=AAEhZ2P66o4y-kuBvLT-bcoOtqeSdlSjdGSVdFv6sCFOeg&dl=1)
+
+This image will unzip to fit on a 2GB SD card. 
+Please get in contact if you can help with hosting bandwidth or seeding a torrent for these image downloads. Any help is much appreciated. 
 
 ## Alternatively build it yourself:
 
