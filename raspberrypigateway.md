@@ -160,5 +160,5 @@ If you wish to change any files on the Pi you will need to mount the storage as 
 
 after your done you can revert the file system back to read only with
 
-	$ipe-ro
+	$ ipe-ro
 
