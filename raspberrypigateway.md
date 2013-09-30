@@ -154,3 +154,11 @@ To restart the script as a background process it's easiest just to reboot the Pi
 
 	$ sudo reboot
 
+If you wish to change any files on the Pi you will need to mount the storage as read and write. To do this run:
+	
+	$ ipe-rw
+
+after your done you can revert the file system back to read only with
+
+	$ipe-ro
+
