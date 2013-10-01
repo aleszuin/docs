@@ -114,9 +114,12 @@ The hostname 'oemgateway' usually works on most network configuritions, if you h
 
 	$ passwd 
 
-and set your timezone, the default is UTC. This will ensure that the emonGLCD display displayes the correct time and resets it's kWh/d counters at the correct time: 
-
+and set your timezone, the default is UTC. This will ensure that the emonGLCD display displayes the correct time and resets it's kWh/d counters at the correct time. Since this is a read only file system we need to temporary make it read/write then lock it back to read only once we're done: 
+	
+	$ ipe-rw
 	$ dpkg-reconfigure tzdata
+	$ ipe-ro
+
 
 ## Troubleshooting 
 
