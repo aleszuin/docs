@@ -114,7 +114,7 @@ The hostname 'oemgateway' usually works on most network configuritions, if you h
 
 	$ passwd 
 
-and set your timezone, the default in Europe/London
+and set your timezone, the default is UTC. This will ensure that the emonGLCD display displayes the correct time and resets it's kWh/d counters at the correct time: 
 
 	$ dpkg-reconfigure tzdata
 
