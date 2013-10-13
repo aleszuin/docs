@@ -5,7 +5,7 @@
 Emoncms version 6 brings in the capability of a new feed storage engine called timestore.
 Timestore is time-series database designed specifically for time-series data developed by Mike Stirling.
 
-[mikestirling.co.uk/redmine/projects/timestore](mikestirling.co.uk/redmine/projects/timestore)
+[mikestirling.co.uk/redmine/projects/timestore](http://mikestirling.co.uk/redmine/projects/timestore)
 
 Timestore's advantages:
 
