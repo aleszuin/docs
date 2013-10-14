@@ -62,6 +62,7 @@ To read the adminkey manually type:
     
 ### 2) Install php curl
     
+    sudo apt-get update
     sudo apt-get install php5-curl
 
 ### 3) Update the emoncms application
