@@ -1,4 +1,4 @@
-# RaspberryPI Gateway
+# Raspberry Pi Gateway
 
 This is a reliable solution which is simple to setup and works well if you just want to forward data to a remote emoncms server like emoncms.org.
 
