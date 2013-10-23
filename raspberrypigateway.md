@@ -14,7 +14,15 @@ It uses Jerome Lafréchoux's exellent python oem_gateway to forward the data to 
 
 Download pre-prepared 2GB SD card image:
 
-#### [oem_gateway24sep2013.img.zip (511Mb)]
+#### Latest - oem_gateway22oct2013.img.zip (527Mb) - [includes updated firmware for new RAM chip](http://openenergymonitor.blogspot.com/2013/10/raspberry-pi-new-type-of-ram.html)
+
+[Download Link 1](https://docs.google.com/file/d/0B7G0lHyW4GQbY2hnSGk4T0xGMlk/edit?usp=sharing)
+
+[Download Link 2](https://www.dropbox.com/l/iTKAMBEqCk9XuntdZUaGed)
+
+
+
+#### Older - oem_gateway24sep2013.img.zip (511Mb)
 
 [Download Link 1](https://docs.google.com/file/d/0B7G0lHyW4GQbNWFHRXhUdHg1bGs/edit?usp=sharing)
 
@@ -23,7 +31,7 @@ Download pre-prepared 2GB SD card image:
 This image will unzip to fit on a 2GB SD card. 
 Please get in contact if you can help with hosting bandwidth or seeding a torrent for these image downloads. Any help is much appreciated. 
 
-## Alternatively build it yourself:
+## 1a) Alternatively build it yourself:
 
 [http://emoncms.org/site/docs/raspberrypigatewaybuild](http://emoncms.org/site/docs/raspberrypigatewaybuild)
 
@@ -120,6 +128,9 @@ and set your timezone, the default is UTC. This will ensure that the emonGLCD di
 	$ dpkg-reconfigure tzdata
 	$ ipe-ro
 
+To enlarge the image to fill the SD card run
+
+	$ firstboot
 
 ## Troubleshooting 
 
