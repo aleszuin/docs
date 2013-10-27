@@ -21,7 +21,7 @@ Timestore also has an additional benefit of using averaged layers which ensures 
 
 #### Using MYSQL or PHPTimeSeries instead of Timestore
 
-If your a familiar with mysql and want to use mysql to do your own queries and processing of the feed data you may want to select mysql as the default data store rather than timestore. The disadvantage of MYSQL is that it is much slower than timestore for common timeseries queries such as zooming through timeseries data.
+If you are familiar with mysql and want to use mysql to do your own queries and processing of the feed data you may want to select mysql as the default data store rather than timestore. The disadvantage of MYSQL is that it is much slower than timestore for common timeseries queries such as zooming through timeseries data.
 
 There is also another feed engine called PHPTimeSeries which provides improved timeseries query speed than mysql but is still slower than timestore. Its main avantages is that it does not require additional installation of timestore as it uses native php file access, it also stores the data in the same data file .MYD format as mysql which means you can switch from mysql to phptimeseries by copying the .MYD mysql data files directly out of your mysql directory into the PHPTimeSeries directory without additional conversion.
 
@@ -87,13 +87,13 @@ Enter in your database settings.
     $server   = "localhost";
     $database = "emoncms";
     
-If your using timestore enter the adminkey found by typing:
+If you're using timestore enter the adminkey found by typing:
 
     cat /var/lib/timestore/adminkey.txt
     
     $timestore_adminkey = "";
     
-If your not using timestore set the default engine to your selected engine:
+If you're not using timestore set the default engine to your selected engine:
 
     $default_engine = Engine::MYSQL;
     
@@ -170,7 +170,7 @@ Upgrade scripts for older versions will be reintroduced very soon, which will ma
 
 ### 15th November 2012 - Removal of feed_relation table and new userid field in feeds table.
 
-If your upgrading from a pre November 2012 (emoncms3) to the current version https://github.com/emoncms/emoncms the new feeds module implementation associates a user with their feeds in a different way. This information is now stored in the feeds table rather than a seperate feed_relation table.
+If you're upgrading from a pre November 2012 (emoncms3) to the current version https://github.com/emoncms/emoncms the new feeds module implementation associates a user with their feeds in a different way. This information is now stored in the feeds table rather than a seperate feed_relation table.
 
 A small script has been created to make this conversion easy. In your emoncms directory you will see a script called **migrate.php** 
 
