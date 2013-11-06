@@ -1,5 +1,10 @@
 ## Emoncms on the Raspberry PI - Ready-to-go image
 
+Note: this is the 'old' Raspberry Pi image based on Raspbian running a full emoncms server. It was found that over time running a full server and logging data locally onto the SD card wore out the SD card in a few months. The solution we have implemented is to use a read-only file systrem with a forwarding script direct to emoncms.org. 
+See here for documentation and download page for this 'new' [Gateway SD card image](http://emoncms.org/site/docs/raspberrypigateway). 
+For background info read our [blog post](http://openenergymonitor.blogspot.com/2013/09/raspberrypi-sd-cards-hdd-gateway.html) discussing the options and introducing the change
+
+
 #### 1) Download the ready-to-go SD card image:
 <br>
 
@@ -64,6 +69,8 @@ Install RFM12Pi hardware expansion module onto the Pi's GPIO pins taking care to
 
 That's it all you need to do now is insert the SD card in the pi, connect ethernet and power it up! Access the PI via your internet browser in the same way as you would access your home router. You can usually find the ip address of the PI by looking at the DHCP table in your router. Alternatively, you can use a network scanning app such as Fing (android), iNet (Mac), iNet (iPhone) to scan your network.
     
+Login to emoncms with user 'raspi' and password 'raspberry'
+
 Return to the OpenEnergyMonitor Guide to setup your sensor nodes and map the inputs in emoncms: http://openenergymonitor.org/emon/guide
 
 <div class='alert alert-info'>
