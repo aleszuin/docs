@@ -42,6 +42,7 @@ If you want to try PHPTimeSeries see optional PHPTimeSeries step below.
 
 ## 1) Download, make and start timestore
 
+    sudo apt-get install build-essential
     cd /home/yourusername
     git clone https://github.com/TrystanLea/timestore
     cd timestore
