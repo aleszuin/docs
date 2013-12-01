@@ -94,7 +94,7 @@ For the frequency setting: 8 used as shorthand for 868Mhz and 4 for 433Mhz.
 
 ![OEM_GATEWAY CONF 01](files/oemgatewayconf01.png)
 
-The second part to configure is the APIKEY of your remote server account, if your using [http://emoncms.org](http://emoncms.org) that's all you need to add here. Once you've created and account on emoncms.org the APIKEY can be found under inputs > input API helper. 
+The second part to add the Read & Write APIKEY of your emoncms remote server account. If your using [http://emoncms.org](http://emoncms.org) that's all you need to add here, once you've created an account on emoncms.org your Read & Write APIKEY can be found under inputs > input API helper. 
 
 If your posting to another emoncms server you will need to set the domain and you may need to set the path if the emoncms installation is in a sub-directory e.g. /emoncms
 
@@ -105,7 +105,7 @@ Save oemgateway.conf file, safely remove the SD card from your computer and now 
 
 ## 4) Plug in the RFM12Pi Expansion module
 
-PLug the RFM12Pi hardware expansion module onto the Pi's GPIO pins taking care to align up pin 1, the RFM12Pi should be connected to the GPIO pins connector closest to the edge of the pi. 
+Plug the RFM12Pi hardware expansion module onto the Pi's GPIO pins taking care to align up pin 1, the RFM12Pi should be connected to the GPIO pins connector closest to the edge of the pi. 
 
 It's best to plug in the RFM12Pi before you power up the Pi, as the Pi sends configuration settings to the RFM12Pi on bootup.
 
