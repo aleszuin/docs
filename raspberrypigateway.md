@@ -14,7 +14,7 @@ It uses Jerome Lafréchoux's exellent python oem_gateway to forward the data to 
 
 Download pre-prepared 2GB SD card image:
 
-#### Latest - oem_gateway22oct2013.img.zip (527Mb) 
+#### Latest - RECOMENDED FOR ALL NEW SETUPS oem_gateway22oct2013.img.zip (527Mb) 
 **[includes updated firmware for new RAM chip](http://openenergymonitor.blogspot.com/2013/10/raspberry-pi-new-type-of-ram.html)**
 
 [Download Link 1](https://docs.google.com/file/d/0B7G0lHyW4GQbY2hnSGk4T0xGMlk/edit?usp=sharing)
@@ -81,9 +81,9 @@ See steps for Mac OSX as documented on the main raspberry pi sd card setup guide
 Select the image as downloaded above.
 <br><br>
 
-## 3) Configure oemgateway settings in SD Card 59Mb boot partition
+## 3) Configure oemgateway settings in SD Card 59Mb FAT boot partition
 
-Open oemgateway.conf found in the SD Card boot partition:
+Insert the SD card into your laptop / SD card reader, open *oemgateway.conf* found in the SD Card boot partition in a plain text editor (e.g. gedit, notepad etc.):
 
 ![Boot partition](files/rpigatewayboot.png)
 
@@ -94,9 +94,14 @@ For the frequency setting: 8 used as shorthand for 868Mhz and 4 for 433Mhz.
 
 ![OEM_GATEWAY CONF 01](files/oemgatewayconf01.png)
 
-The second part to configure is the apikey of your remote server account, if its emoncms.org thats all you need to add here. If your posting to another server you will need to set the domain and you may need to set the path if the emoncms installation is in a sub-directory.
+The second part to configure is the APIKEY of your remote server account, if your using [http://emoncms.org](http://emoncms.org) that's all you need to add here. Once you've created and account on emoncms.org the APIKEY can be found under inputs > input API helper. 
+
+If your posting to another emoncms server you will need to set the domain and you may need to set the path if the emoncms installation is in a sub-directory e.g. /emoncms
 
 ![OEM_GATEWAY CONF 02](files/oemgatewayconf02.png)
+
+Save oemgateway.conf file, safely remove the SD card from your computer and now insert it into your Raspberry Pi.
+
 
 ## 4) Plug in the RFM12Pi Expansion module
 
@@ -106,9 +111,9 @@ It's best to plug in the RFM12Pi before you power up the Pi, as the Pi sends con
 
 ## 5) Power it up!
 
-Thats it, if you have sensor nodes sending data, inputs should start appearing in your emoncms account.
+That's it, if you have sensor nodes sending data, inputs should start appearing in the inputs section your emoncms account in a few seconds.
 
-Return to the OpenEnergyMonitor Guide to setup your sensor nodes and map the inputs in emoncms: 
+Return to the OpenEnergyMonitor Guide to setup your sensor nodes and map the inputs to create feeds and build your dashboard in emoncms: 
 [http://openenergymonitor.org/emon/guide](http://openenergymonitor.org/emon/guide)
 
 
@@ -153,7 +158,11 @@ To restart the script as a foreground process so we can view it's output run
 
 	$ python /root/oem_gateway/oemgateway.py --config-file /boot/oemgateway.conf
 
-You should now see output like the following
+If you want to save the log output to a file this can be done by running:
+
+	$ python/root/oem_gateway/oemgateway.py --config-file /boot/oemgateway.conf --logfile /root/oem_gateway/oemgateway.log
+
+You should now see output like the following:
 
 ![oem_gateway_debug](files/oem_gateway_debug.png)
 
