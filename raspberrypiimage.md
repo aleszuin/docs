@@ -8,24 +8,12 @@ For background info read our [blog post](http://openenergymonitor.blogspot.com/2
 #### 1) Download the ready-to-go SD card image:
 <br>
 
-**Latest: emoncmspiv5avr_02_05_13.zip (770.9MB)**
+**Latest: emoncmspiv5avr_2may.img.zip (770.9MB)**
 
-[Dropbox Download Mirror 1](https://www.dropbox.com/s/koqvr4yp8spl59d/emoncmspiv5avr_02_05_13.zip)
+[Download Mirror 1](http://217.9.195.228/emoncmspiv5avr_2may.img.zip)
 * with minimal log files turned on by default to reduce Raspberry Pi SD card wear
 
 <br>
-
-
-**Older: emoncmspi image (1.1GB)**
-
-[Dropbox Download Mirror 1](https://www.dropbox.com/s/mz3klx0a2caelzo/emoncmspiv5avr_19-05-13.img.zip)
-
-[Dropbox Download Mirror 2](https://www.dropbox.com/s/6x095kmgkead78u/emoncmspiv5avr_19-05-13.img.zip)
-
-[Ubuntu One Download Mirror 3](http://t.co/xwVRlrC5Vj)
-
-[Torrent Download](http://torcache.net/torrent/AED670234438B2DDB7FC4842F429041F31696693.torrent) -please help seed, more info [here](http://openenergymonitor.org/emon/node/2278)
-
 
 The image need a minimum SD card size of 4GB. On a 4GB card 1.5GB is free for data storage. If you're card it larger than 4GB you can expand the partition by running **$ sudo raspi-config** once your're up and running
 
