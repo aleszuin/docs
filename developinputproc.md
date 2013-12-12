@@ -28,7 +28,12 @@ This first part takes the json-like string and explodes it into first data pairs
       foreach ($datapairs as $datapair)       
       {
         $datapair = explode(":", $datapair);
-        echo "<tr><td>$datapair[0]</td><td>$datapair[1]</td></tr>";
+        
+        // sanitize input by ensuring it is of correct format
+        $inputname = preg_replace('/[^\w\s-.]/','',$datapair[0]);
+        $value = floatval($datapair[1]);
+        
+        echo "<tr><td>$inputname</td><td>$value</td></tr>";
       }
       echo "</table>";
     ?>
@@ -67,8 +72,10 @@ Now that we have recieved and processed the input string the next step is to reg
       foreach ($datapairs as $datapair)       
       {
         $datapair = explode(":", $datapair);
-        $inputname = $datapair[0];
-        $value = $datapair[1];
+        
+        // sanitize input by ensuring it is of correct format
+        $inputname = preg_replace('/[^\w\s-.]/','',$datapair[0]);
+        $value = floatval($datapair[1]);
     
         $time = time();
         $datetime = date("Y-n-j H:i:s", $time);
@@ -254,4 +261,6 @@ But lets go further, updating the inputs last value and time (recording and inpu
 
 Going forward from here it would be good to find further query savings in the process functions themselves found in process_model.php which could provide significant further performance improvements.
 
-... to be continued ...
+## Performance improvements with Redis November 2013
+
+[8th Nov 2013: Improving emoncms performance with Redis plus interesting consequences for SD cards](http://openenergymonitor.blogspot.co.uk/2013/11/improving-emoncms-performance-with_8.html)

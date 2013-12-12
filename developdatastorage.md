@@ -1,37 +1,34 @@
 ## Data Storage and efficient access
 
-From the blog: [Speeding up emoncms feed data requests](http://openenergymonitor.blogspot.co.uk/2012/04/speeding-up-emoncms-feed-data-requests.html)
+[8th Nov 2013: Improving emoncms performance with Redis plus interesting consequences for SD cards](http://openenergymonitor.blogspot.co.uk/2013/11/improving-emoncms-performance-with_8.html)
 
-If you log 5 second data you quickly amass a huge number of datapoints (about 6 million a year). If you then tried to visualise a years data by loading all 6 million datapoints you would be waiting a long time. The most we would want to load is the same number of datapoints as the pixel width of the visualisation, lets say around 1000 datapoints. So we need some way of picking out of our 6 million datapoints 1000 datapoints at equal interval.
+[1st Aug 2013: Preparing emoncms.org feeds for conversion to timestore](http://openenergymonitor.blogspot.com/2013/08/preparing-emoncmsorg-feeds-for.html)
 
-When I first wrote emoncms I searched for mysql queries that could pick out table rows at given intervals and came across the following query that does this:
+[31st Jul 2013: From 1.3 minutes to 196ms: timestore on emoncms.org](http://openenergymonitor.blogspot.com/2013/07/from-13-minutes-to-196ms-timestore-on.html)
 
-    SELECT * FROM (SELECT @row := @row +1 AS rownum, time,data FROM 
-    ( SELECT @row :=0) r, $feedname) ranked WHERE (rownum % $resolution = 1) 
-    AND (time>'$start' AND time<'$end') order by time Desc
+[22nd Jul 2013: Emoncms powered by timestore](http://openenergymonitor.blogspot.com/2013/07/emoncms-powered-by-timestore.html)
 
-It seem to work really well. Fast forward 5 months my feed tables are approaching 2.5 million rows  and I'm starting to notice query times getting really quite long. After a bit of searching again, I came across a suggestion to a similar problem suggesting the use of an index. So I tried adding an index and creating a php for-loop to request a single row at given intervals:
+[4th Jul 2013: More direct file storage research](http://openenergymonitor.blogspot.com/2013/07/more-direct-file-storage-research.html)
 
-    $range = $end - $start;
-    $interval = $range / 1000;
-    
-    for ($i=0; $i<1000; $i++)
-    {
-      $qtime = $start + $i * $interval;
-      $result = db_query("SELECT * FROM $feedname WHERE `time` >$qtime LIMIT 1");
-      if($result){
-        $row = db_fetch_array($result);
-        $data[] = array($row['time'] * 1000, $row['data']);     
-      }
-    }
+[4th Jul 2013: In memory storage: PHP shared memory vs Redis vs MYSQL](http://openenergymonitor.blogspot.com/2013/07/in-memory-storage-php-shared-memory-vs.html)
 
-The following table shows the typical times for requesting data from both the indexed and non indexed tables and the different methods. At the same time I also tested whether request times where affected by the data type that time is stored as: mysql datetime or a unix timestamp stored as an unsigned int.
+[28th Jun 2013: Load stat's for MYISAM vs INNODB for feed storage on the RaspberryPI](http://openenergymonitor.blogspot.com/2013/06/load-stats-for-myisam-vs-innodb-for.html)
 
-[![](files/queryspeeddata.png)][0]
+[27th Jun 2013: Rethinking the data input and storage core of emoncms: benchmarks](http://openenergymonitor.blogspot.com/2013/06/rethinking-data-input-and-storage-core.html)
 
-  
-So it looks like the optimum configuration is primarily the addition of an index and use of the php data request method and then to reduce disk space use, switching to unix timestamp.
 
-This is the current implementation of data storage in emoncms.
+[25th Jun 2013: Idea for using redis in-memory database to improve emoncms performance](http://openenergymonitor.blogspot.com/2013/06/idea-for-using-redis-in-memory-database.html)
 
-[0]: http://2.bp.blogspot.com/-mLgSqKaw8Ng/T4cQ9I1n-XI/AAAAAAAACZw/1zFfpAL2ZPo/s1600/queryspeeddata.png
+[3rd Jun 2013: Timestore timeseries database](http://openenergymonitor.blogspot.com/2013/06/timestore-timeseries-database.html)
+
+[30th May 2013: Emoncms.org load stats](http://openenergymonitor.blogspot.com/2013/05/emoncmsorg-load-stats.html)
+
+[12 Apr 2012: Speeding up emoncms feed data requests](http://openenergymonitor.blogspot.co.uk/2012/04/speeding-up-emoncms-feed-data-requests.html)
+
+------
+
+[5th Jun 2013: Removing redundant datapoints – algorithm 1](http://openenergymonitor.blogspot.com/2013/06/removing-redundant-datapoints-algorithm.html)
+
+[4th Jun 2013: Removing redundant datapoints - part 1](http://openenergymonitor.blogspot.com/2013/06/removing-redundant-datapoints-part-1.html)
+
+

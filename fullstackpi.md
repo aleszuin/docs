@@ -1,6 +1,27 @@
-## Building the Full emoncms on the raspberrypi software stack
+## Building the full emoncms on the raspberrypi software stack
 
-Start by either installing the oem_gateway image as detailed here or if you wish follow the gateway installation guide here.
+**Exploring a decentralised energy monitoring data storage architecture** - *by Trystan Lea*
+
+The oem gateway forwarder makes a simple raspberry pi setup but it requires a remote server for data storage and visualisation such as emoncms.org. While this may be useful for many applications such as open data or for monitors with barebone basestations such as the NanodeRF there may be situations where a local-only or served locally setup is more applicable. The aim of the full emoncms on the raspberrypi software stack is to create an option that does not require a remote server. Data is stored locally on the raspberrypi with an optional but recommended automated periodic backup to your main computer.
+
+<div class="alert alert-info">
+<p>This guide details how to build the full software stack for running emoncms on the raspberry pi.</p>
+
+<p><b>New features in this experimental build: </b><br>
+
+<p><b>Two partitions (read-only OS & read-write data):</b><br>New in this version of the "full stack" build is that the operating system (debian linux) is placed on a read-only partition as is done with the rock solid gateway forwarder. A second partition is then used for storing monitored data. This should provide for a more robust setup in that at least in the event of a failure on the writeable data partition the SD card should boot and be functional as a simple gateway forwarder.</p>
+
+<p><b>Redis: </b><br>The other notable feature of this build is that it is running the latest emoncms development branch which introduces the use of redis (an in memory database). Redis is used to store the feed and input last values which do not need to be persistent on disk. Storing these in memory therefore reduces disk writes potentially increasing the life span of the SD card.</p>
+
+<p>With a simple system with a few energy monitoring and temperature nodes posting show a reducion in the write rate of about 45%</p>
+</div>
+
+The older full emoncms on the pi build guide and ready to go image can be found here: 
+[Old full stack emoncms raspberrypi build and image](http://emoncms.org/site/docs/raspberrypibuild)
+
+<p><b>There will be a ready to go image available of the build below very soon.</b></p>
+
+Start by either installing the oem_gateway image as detailed [here](http://emoncms.org/site/docs/raspberrypigateway) or if you wish follow the gateway installation guide [here](http://emoncms.org/site/docs/raspberrypigatewaybuild).
 
 The gateway image comes with a couple of things that make getting started easier, primarily that it already has ssh server installed and so you dont need a hdmi monitor or keyboard connected to your pi to follow the rest of this guide. You can just log into your pi over your network.
 
@@ -155,8 +176,9 @@ to
     
 Save and exit.
 
+Make timestore:
+
     cd timestore
-    
     make
 
 Install timestore init script:
@@ -202,69 +224,99 @@ MYSQL log and data location settings
 
 Redis settings
 
-nano /etc/redis/redis.conf
+    nano /etc/redis/redis.conf
 
 set LogFile location to /data/log/redis/redis-server.log
 
-change save to: save 900 1 only
+    change save to: save 900 1 only
 
-chage working directory
+change working directory
 
-mkdir /data/phptimeseries
+    mkdir /data/phptimeseries
 
-## Install emoncms
+### Install emoncms
 
-git clone -b redismetadata https://github.com/emoncms/emoncms.git
+Download the latest version of the redismetadata emoncms branch:
 
-cp default.settings.php settings.php
- nano settings.php
- 
-mysql -u root -p 
+    cd /var/www
+    git clone -b redismetadata https://github.com/emoncms/emoncms.git
+    
+Create mysql database for emoncms:
 
-CREATE DATABASE emoncms;
+    mysql -u root -p (image password is: raspberry) 
+    CREATE DATABASE emoncms;
 
-cat /data/timestore/adminkey.txt 
+Enter mysql and timestore authentication settings in the emoncms settings file:
 
-Install raspberrypi module
+First create a copy of default.settings.php called settings.php:
 
- nano /etc/rc.local
+    cp default.settings.php settings.php
+    
+Use the mysql user, password and database name as used when creating the emoncms database.
 
-(sleep 10; python /root/oem_gateway/oemgateway.py --config-file /boot/oemgateway.conf
+The timestore adminkey can be found by calling:
 
-sudo cp /var/www/emoncms/Modules/raspberrypi/rfm12piphp /etc/init.d/
-nano /etc/init.d/rfm12piphp
+    cat /data/timestore/adminkey.txt
+
+### Install raspberrypi module
+
+    cd /var/www/emoncms/Modules
+    git clone https://github.com/emoncms/raspberrypi.git
+    sudo cp /var/www/emoncms/Modules/raspberrypi/rfm12piphp /etc/init.d/
+    nano /etc/init.d/rfm12piphp
+    
+If you wish to use the php gateway rather than the python gateway that comes with the oem_gateway image you will need to disable the entry for the python gateway in /etc/rc.local.
+    
+    nano /etc/rc.local
+
+Comment out the existing entry by placing a # before the following line, as so:
+
+    # (sleep 10; python /root/oem_gateway/oemgateway.py --config-file /boot/oemgateway.conf
 
 remove lock file 
 
+## Security
+
+[http://blog.al4.co.nz/2011/05/setting-up-a-secure-ubuntu-lamp-server/](http://blog.al4.co.nz/2011/05/setting-up-a-secure-ubuntu-lamp-server/)
+
 ### Install ufw
 
-http://blog.al4.co.nz/2011/05/setting-up-a-secure-ubuntu-lamp-server/
+ufw: uncomplicated firewall, is a great little firewall program that you can use to control your server access rules. The default set below are fairly standard for a web server but are quite permissive. You may want to only allow connection on a certain ip if you will always be accessing your pi from a fixed ip.
 
-   apt-get install ufw
-   ufw allow 80/tcp
-   ufw allow 443/tcp
-   ufw allow 22/tcp
-   ufw enable
-   
+UFW Documentation
+[https://help.ubuntu.com/community/UFW](https://help.ubuntu.com/community/UFW)
+
+    apt-get install ufw
+    ufw allow 80/tcp
+    ufw allow 443/tcp
+    ufw allow 22/tcp
+    ufw enable
+
+### Change root password
+
 Set root password
 
-   passwd root
-   
-   default:
-   {@.o7SNf~Qg3-0}#SRCM
-   
+    passwd root
+
+The default root password used in the ready to go image is **{@.o7SNf~Qg3-0}#SRCM**. 
+Change this to a hard to guess password to make your root account secure.
+
+### Create a new user
+
+Its best practice not to use the root account for normal use. If the root accout is disabled on a publicly facing server or a raspberrypi made available to the web via port forwarding on your router this will immedietly stop a large percentage of automated dictionary attacks, where a script will try and guess your root password to login.
+
 Create a user 
 
-   useradd -m -G sudo,adm -s /bin/bash pi
-   
-   passwd pi
-   
-   default: (change this for secure installation)
-   raspberry 
+    useradd -m -G sudo,adm -s /bin/bash pi
+
+    passwd pi
+
+    default: (change this for secure installation)
+    raspberry 
    
 Disable root login via ssh
  
-   nano /etc/ssh/sshd_config
+    nano /etc/ssh/sshd_config
    
 set 
 
@@ -275,33 +327,30 @@ at the bottom add the lines:
     AllowUsers pi
     AllowGroups adm
 
-Secure MySQL   
+### Secure MySQL
 
-Remove anonymous accounts
-DROP USER ''@'localhost';
-DROP USER ''@'oemgateway';
-DROP DATABASE test;
+Follow guide here: 
 
+[http://dev.mysql.com/doc/refman/5.0/en/mysql-secure-installation.html](http://dev.mysql.com/doc/refman/5.0/en/mysql-secure-installation.html)
 
-User login for default emoncms account is
+### Getting sudo to work with read-only os partition
 
-admin
-raspberry
+To get sudo to work I had to re-install sudo with the *--with-timedir* option set to */data/sudo*.
 
+Sudo installation: [http://www.linuxfromscratch.org/blfs/view/cvs/postlfs/sudo.html](http://www.linuxfromscratch.org/blfs/view/cvs/postlfs/sudo.html)
 
-To get sudo to work I had too:
-http://www.linuxfromscratch.org/blfs/view/cvs/postlfs/sudo.html
-wget http://www.sudo.ws/sudo/dist/sudo-1.8.8.tar.gz
-tar -zxvf sudo-1.8.8.tar.gz
+    wget http://www.sudo.ws/sudo/dist/sudo-1.8.8.tar.gz
+    tar -zxvf sudo-1.8.8.tar.gz
 
-./configure --prefix=/usr                      \
-            --libexecdir=/usr/lib/sudo         \
-            --docdir=/usr/share/doc/sudo-1.8.8 \
-            --with-timedir=/data/sudo       \
-            --with-all-insults                 \
-            --with-env-editor                  &&
-make
+    ./configure --prefix=/usr                      \
+                --libexecdir=/usr/lib/sudo         \
+                --docdir=/usr/share/doc/sudo-1.8.8 \
+                --with-timedir=/data/sudo       \
+                --with-all-insults                 \
+                --with-env-editor                  &&
+    make
 
+### Add a redirect to launch emoncms
 
 Add redirect in /var/www
 
@@ -317,3 +366,10 @@ Set emoncms to use timestore data directory
 Install usefulscripts
 
 Port data across from second raspberrypi or emoncms.org account
+
+### Setting up your main computer to automatically download the latest data from the raspberrypi.
+
+This section is to be written next. There are a couple of scripts available in the usefulscripts repository that can automatically download latest data from the raspberrypi to an installation of emoncms on your main computer.
+
+git clone https://github.com/emoncms/usefulscripts/tree/master/replication
+

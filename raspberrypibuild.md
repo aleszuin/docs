@@ -1,5 +1,10 @@
 # Emoncms on the Raspberry PI - Build from scratch
 
+<div class="alert alert-info"><b>Ready to go image: </b>
+There is a pre-compiled image of the following available here
+<a href="http://emoncms.org/site/docs/raspberrypiimage">Ready-to-go SD Card Image</a>
+</div>
+
 Download Raspbian 'Wheezy' SD card image [here](http://www.raspberrypi.org/downloads) (This guide was made using 9th February 2013 release). Extract the image.
 
 ## 1) Write image to an SD card (Linux)
@@ -98,7 +103,7 @@ At the bottom of the file comment out the line (by adding a '#' at begining)
 
 ## 5) Install rfm12pi gateway service
 
-Install one of the two available gateway scripts and let them run on startup. The PHP gateway is the latest and greatest:
+Install one of the two available gateway scripts and let them run on startup.
 
 #### PHP Gateway
 

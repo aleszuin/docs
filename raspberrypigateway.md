@@ -10,6 +10,9 @@ It uses Jerome Lafréchoux's exellent python oem_gateway to forward the data to 
 
 [https://github.com/Jerome-github/oem_gateway](https://github.com/Jerome-github/oem_gateway)
 
+<div class="alert alert-info">
+<b>Note for use with older rfm12pi v1: </b>If your using the older through hole rfm12pi v1 and you dont need to send the time to an emonglcd it is advisable to turn off time sending in the oem_gateway.conf configuration file. To do this set sendtimeinterval = 0 on line 37 of  oem_gateway.conf. The ATTiny implementation of software serial has a bug in it that causes rfm12pi v1 time sending to be unreliable. rfm12pi v2 appears to work fine.</div>
+
 ## 1) Download the ready-to-go SD card image:
 
 Download pre-prepared 2GB SD card image:
