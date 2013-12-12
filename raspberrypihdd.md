@@ -1,4 +1,4 @@
-# RaspberryPI + Harddrive + Emoncms
+# Raspberry Pi + Harddrive + Emoncms
 
 ![](files/pihdsetup.jpg)
 
@@ -49,7 +49,7 @@ The image's below have limited monthly bandwidth if you can help by mirroring th
 After unzipping *emoncms\_raspberrypi\_hdd\_stack.tar.gz* you will see two images: 
 
 - *boot.img*
-- *pi\_hdd\_stack.img*. 
+- *pi_hdd_stack.img*. 
 
 Use a tool such as *dd* on linux or *Win32DiskImager* to write the *boot.img* image to the SD card and the *pi\_hdd\_stack.img* image to the hard drive. 
 
@@ -93,7 +93,7 @@ Now we repeat the above steps for the hard drive. First remove the SD card and t
 
 Then to write the harddrive image:
     
-    $ sudo dd bs=4M if=pi\_hdd\_stack.img.img of=/dev/sdb
+    $ sudo dd bs=4M if==pi_hdd_stack.img of=/dev/sdb
 
 #### Windows 
 
