@@ -95,7 +95,7 @@ Now we repeat the above steps for the hard drive. First remove the SD card and t
 
 Then to write the harddrive image:
     
-    $ sudo dd bs=4M if==pi_hdd_stack.img of=/dev/sdb
+    $ sudo dd bs=4M if=pi_hdd_stack.img of=/dev/sdb
 
 #### Windows 
 
