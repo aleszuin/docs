@@ -130,7 +130,7 @@ Hit save when done. You should see the notice that the script is running at the 
 
 You should also notice that the 'extra's menu is more populated than on emoncms.org, lots of new things to play with! Many of these modules are in development, see gitHub readme's for info:
 
-![](files/RasPi_emoncms.png)
+![](files/RasPi_emoncms_extras.png)
 
 ### Admin and troubleshooting
 
