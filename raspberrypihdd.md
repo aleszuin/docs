@@ -108,4 +108,19 @@ Select the image as downloaded above.
 See steps for Mac OSX as documented on the main raspberry pi sd card setup guide:
 [http://elinux.org/RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup)
 Select the image as downloaded above.
+
+### Bootup & Log in 
+
+Connect up the Pi powering it from the USB h
+Browse to the Pi's local IP address in your web broswer and you should see an emoncms login page. The default login is, the username nad password can be changed once logged in. 
+	
+	User: admin
+	Password: raspberry
+
+The default ssh login details are as follows, we recomend the password is changed:
+
+	user: pi
+	Password: raspberry
 <br><br>
+
+
