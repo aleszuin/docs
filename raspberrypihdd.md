@@ -109,13 +109,30 @@ See steps for Mac OSX as documented on the main raspberry pi sd card setup guide
 [http://elinux.org/RPi_Easy_SD_Card_Setup](http://elinux.org/RPi_Easy_SD_Card_Setup)
 Select the image as downloaded above.
 
-### Bootup & Log in 
+### Bootup & login
 
-Connect up the Pi powering it from the USB h
-Browse to the Pi's local IP address in your web broswer and you should see an emoncms login page. The default login is, the username nad password can be changed once logged in. 
+Plug HDD into the USB hub, plug the output from the hub (type B USB) into the USD port on the Pi (type A) and connect power to the pi via the micro usb port into another type-A USB socket on the hub. Instert the SD card with boot.img written to it into the Pi and connect the power to the USB hub. You should here the HDD spin up and start loading the OS in a few seconds. 
+
+Browse to the Pi's local IP address in your web broswer (you can find this from your router (I prefer using an Android/Iphone app called Fing) and you should see an emoncms login page. The default login is, the username nad password can be changed once logged in. 
 	
 	User: admin
 	Password: raspberry
+
+## Setup emoncms
+
+Once logged into emoncms admin account. Click on 'RaspberryPi' on the top menu and enter the freqeuncy to match your RFM12Pi module, network group (the default is 210), the RFM12Pi node ID (usually no change required), and the time sending interval to the emonGLCD (if required). 
+
+Here you can also enter the URL of a remote emoncms sever and your API key for mirroring the data to a remote server. 
+
+![](files/RasPi_emoncms.png)
+
+Hit save when done. You should see the notice that the script is running at the top of this page. 
+
+You should also notice that the 'extra's menu is more populated than on emoncms.org, lots of new things to play with! Many of these modules are in development, see gitHub readme's for info:
+
+![](files/RasPi_emoncms.png)
+
+### Admin and troubleshooting
 
 The default ssh login details are as follows, we recomend the password is changed:
 
