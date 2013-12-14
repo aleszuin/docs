@@ -113,10 +113,12 @@ Select the image as downloaded above.
 
 Plug HDD into the USB hub, plug the output from the hub (type B USB) into the USD port on the Pi (type A) and connect power to the pi via the micro usb port into another type-A USB socket on the hub. Instert the SD card with boot.img written to it into the Pi and connect the power to the USB hub. You should here the HDD spin up and start loading the OS in a few seconds. 
 
-Browse to the Pi's local IP address in your web broswer (you can find this from your router (I prefer using an Android/Iphone app called Fing) and you should see an emoncms login page. The default login is, the username nad password can be changed once logged in. 
+Browse to the Pi's local IP address in your web broswer (you can find this from your router (I prefer using an Android/Iphone app called Fing) and you should see an emoncms login page. The default login is:
 	
 	User: admin
 	Password: raspberry
+
+The username nad password can be changed once logged in. 
 
 ## Setup emoncms
 
@@ -128,7 +130,7 @@ Here you can also enter the URL of a remote emoncms sever and your API key for m
 
 Hit save when done. You should see the notice that the script is running at the top of this page. 
 
-You should also notice that the 'extra's menu is more populated than on emoncms.org, lots of new things to play with! Many of these modules are in development, see gitHub readme's for info:
+You should also notice that the 'extras' menu is more populated than on emoncms.org, lots of new things to play with! Many of these modules are in development, see GitHub module pages for info:
 
 ![](files/RasPi_emoncms_extras.png)
 
