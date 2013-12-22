@@ -134,12 +134,30 @@ You should also notice that the 'extras' menu is more populated than on emoncms.
 
 ![](files/RasPi_emoncms_extras.png)
 
+### Update to latest version 
+
+At the time of writing the current branch of emoncms is ahead of the version HDD image. To update to latest version ssh into the Pi (see instructions below) and run 
+
+	$ git pull /var/www/emoncms 
+
+It also might be neccesarry to update emoncms Modules, e.g the packet generator module has been updated since the HDD image was made, update with
+
+	$ git pull /var/www/emoncms/Modules/packetgen
+
+
 ### Admin and troubleshooting
 
 The default ssh login details are as follows, we recomend the password is changed:
 
 	user: pi
 	Password: raspberry
+
+To ssh remotly from Linux:
+
+	$ ssh pi@PIs_LOCAL_IP
+
+then enter the password
+
 <br><br>
 
 
