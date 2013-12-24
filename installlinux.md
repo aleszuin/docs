@@ -3,6 +3,24 @@
 
 This guide should work on most debian systems including Ubuntu. For installation guide on installing emoncms on a raspberrypi see [raspberrypi from ready-to-go image](http://emoncms.org/site/docs/raspberrypiimage) or [raspberrypi build from scratch](http://emoncms.org/site/docs/raspberrypibuild).
 
+## Emoncms v7 (redis)
+
+As part of recent work to improve the performance of emoncms because of high load's on emoncms.org redis was introduced to store feed and input meta data including last feed time and value fields which where causing significant write load on the server. This change benefits all installation types of emoncms whether emoncms.org or a raspberrypi as it siginficantly reduces the amount of disk writes. 
+
+Using redis in this way leads to quite a big performance improvement. Enabling almost 5 times the request rate in benchmarking.
+
+Blog post: [http://openenergymonitor.blogspot.co.uk/2013/11/improving-emoncms-performance-with_8.html](http://openenergymonitor.blogspot.co.uk/2013/11/improving-emoncms-performance-with_8.html)
+
+To upgrade you will need redis server installed and the phpredis client:
+
+    sudo apt-get install redis-server
+    sudo pecl install redis
+    
+Add pecl redis module to php5 config
+    
+    sudo sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
+    sudo sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
+
 ## v6 (timestore+)
 
 Emoncms version 6 brings in the capability of a new feed storage engine called timestore.
