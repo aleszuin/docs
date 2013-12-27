@@ -34,6 +34,8 @@ Or run firstboot if you want to do all the above but also expand to fill the SD 
 
 Make sure that Raspberry Pi’s UART is disconnected from the console and available for programs to use. The problem here is that */boot/cmdline.txt* is mounded on a R/O partition, easiest way is to insert the SD card in a computer and edit that file there. Remove the text that make reference to the UART i.e.
 
+update: there is a nice script which will automate the process of removing the UART from the console: https://github.com/lurch/rpi-serial-console
+
     console=ttyAMA0,115200 kgdboc=ttyAMA0,115200
 
 run
