@@ -99,53 +99,33 @@ tep
     
     mkdir /data/log
     
-Install Apache-Mysql-PHP
+Install dependencies
     
-    apt-get install apache2
-    apt-get install mysql-server mysql-client
-    apt-get install php5 libapache2-mod-php5
-    apt-get install php5-mysql
-    apt-get install php5-curl
-    apt-get install php5-dev
+    sudo apt-get install apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear php5-dev php5-mcrypt git-core redis-server build-essential ufw ntp
     
+Install pecl dependencies (serial, redis and swift mailer)
+
+    sudo pear channel-discover pear.swiftmailer.org
+    sudo pecl install channel://pecl.php.net/dio-0.0.6 redis swift/swift
+
+Add pecl modules to php5 config
+
+    sudo sh -c 'echo "extension=dio.so" > /etc/php5/apache2/conf.d/20-dio.ini'
+    sudo sh -c 'echo "extension=dio.so" > /etc/php5/cli/conf.d/20-dio.ini'
+    sudo sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
+    sudo sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
+
+Create directories on read/write partition for mysql
+
     mkdir /data/mysql
     cp -rp /var/lib/mysql/. /data/mysql
     
-Install php serial library:
-
-    apt-get install php-pear
-    pecl install channel://pecl.php.net/dio-0.0.6
-    nano /etc/php5/cli/php.ini
-
-Install redis server
-
-    apt-get install redis-server
-
-Install php redis client:
-
-    git clone https://github.com/nicolasff/phpredis.git
-    cd phpredis
-    phpize
-    ./configure [--enable-redis-igbinary]
-    make && make install
+and redis:
     
     mkdir /data/redis
     chown redis:redis /data/redis
     mkdir /data/log/redis
     chown redis:redis /data/log/redis
-    
-Add both redis client and serial library to php.ini:
-
-    nano /etc/php5/cli/php.ini
-    
-and:
-    
-    nano /etc/php5/apache2/php.ini
-
-Add to the beginning of the ;Dynamic Extensions; section on line 843. [Ctrl+W] then enter Dynamic Extensions can be used to search for the correct section. Add the following lines:
-
-    extension=redis.so
-    extension=dio.so
     
 Install timestore
 
