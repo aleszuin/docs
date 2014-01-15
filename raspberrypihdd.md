@@ -2,7 +2,6 @@
 
 ![](files/pihdsetup.jpg)
 
-#### [Download image: emoncms_raspberrypi_hdd_stack.tar.gz](http://217.9.195.228/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
 
 [Image Build notes](http://emoncms.org/site/docs/raspberrypihddbuild)
 
@@ -46,7 +45,11 @@ The images below have limited monthly bandwidth if you can help by mirroring the
 
 **Mirror 1 UK:** [emoncms_raspberrypi_hdd_stack.tar.gz](http://217.9.195.228/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
 
-**Mirror 2 UK:** [emoncms_raspberrypi_hdd_stack.tar.gz](http://213.138.101.177/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
+**Mirror 2 Europe** [emoncms_raspberrypi_hdd_stack.tar.gz](http://www.pizzacapri.dk/oem/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
+
+**Mirror 3 Europe** [emoncms_raspberrypi_hdd_stack.tar.gz](http://xn--pizzalg-v1a.dk/oem/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
+
+**Mirror 4 UK:** [emoncms_raspberrypi_hdd_stack.tar.gz](http://213.138.101.177/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
 
 After unzipping *emoncms_raspberrypi_hdd_stack.tar.gz* you will see two images: 
 
