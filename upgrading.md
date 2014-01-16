@@ -1,4 +1,4 @@
-## Emoncms v7 (redis)
+#### From v6 to v7 (redis)
 
 As part of recent work to improve the performance of emoncms because of high load's on emoncms.org redis was introduced to store feed and input meta data including last feed time and value fields which where causing significant write load on the server. This change benefits all installation types of emoncms whether emoncms.org or a raspberrypi as it siginficantly reduces the amount of disk writes. 
 
@@ -16,7 +16,7 @@ Add pecl redis module to php5 config
     sudo sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
     sudo sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
 
-#### v6 (timestore+)
+#### From v5 to v6 (timestore+)
 
 Emoncms version 6 brings in the capability of a new feed storage engine called timestore.
 Timestore is time-series database designed specifically for time-series data developed by Mike Stirling.
