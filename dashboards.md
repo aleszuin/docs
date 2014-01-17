@@ -90,7 +90,7 @@ Each dashboard can have a human readable **name** a menu **alias**, and a **desc
 
 A main dashboard is the equivalent to the front page when you'r in run mode. 
 
-A published dashboard is a daschboard that you have finished editing but is not public.
+A published dashboard is a dashboard that you have finished editing and is publicly visible.
 
 A public dashboard is a dashboard that you choose to share publicly via your username to the web.
 
