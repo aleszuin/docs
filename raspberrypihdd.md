@@ -45,7 +45,7 @@ The images below have limited monthly bandwidth if you can help by mirroring the
 
 #### Latest image 20 of January 2014
 
-**Mirror 1 UK:** [2014-01-20-emoncms_raspberrypi_hdd_stack.tar.gz](http://217.9.195.228/2014-01-20-emoncms_raspberrypi_hdd_stack.zip) (791Mb)
+**Mirror 1 UK:** [2014-01-20-emoncms_raspberrypi_hdd_stack.tar.gz](http://217.9.195.228/2014-01-20-emoncms_raspberrypi_hdd_stack.zip) (1GB)
 
 #### Old image
 **Mirror 1 UK:** [emoncms_raspberrypi_hdd_stack.tar.gz](http://217.9.195.228/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
