@@ -37,9 +37,10 @@ When, in phpmyadmin, the database has been created, a new user must also be crea
 
 #### 5) Download emoncms
 
-Click on the **Download ZIP** button on the right hand side.
+Download version 6.9, this is the last stable release known to work on windows (it does not use redis and can be used without timestore)
 
-    https://github.com/emoncms/emoncms
+    https://github.com/emoncms/emoncms/releases/tag/v6.9
+
     
 #### 6) Place emoncms in your WAMP public html / www directory
 
@@ -120,7 +121,9 @@ change to:
 
     private $dir = "C:\Users\Username\phptimeseries ";
   
-The space at the end is important.
+The space at the end may be needed on some systems, on the second system this was tested on the following worked:
+
+    private $dir = "C:\Users\Username\phptimeseries\";
 
 Open your settings.php file and change
 
@@ -131,6 +134,23 @@ to:
     $default_engine = Engine::PHPTIMESERIES;
 
 Try creating new feeds as above and check that the feeds appear in the directory you created, they will have a .MYD extention.
+
+### Using a jeelink to recieve data from wireless sensing nodes and forward to emoncms
+
+If you have emoncms installed on your windows laptop or a windows home server with a usb port on it the easiest way to recieve data from sensor nodes is with a jeelink plugged into the usb port and then a python script on your computer or server forwarding the data straight to emoncms. Python installs nicely on windows and has a GUI editor that makes launching the python link script easier.
+
+Download and install python (version 2.7) from here: [http://www.python.org/getit/](http://www.python.org/getit/)
+
+and pyserial from here (version 2.7) [https://pypi.python.org/pypi/pyserial](https://pypi.python.org/pypi/pyserial)
+
+Open the Python IDLE GUI (start menu) and then open the pylink.py code that's up on github here in the editor:
+[https://github.com/emoncms/development/blob/master/Tutorials/Python/PyLink/pylink.py](https://github.com/emoncms/development/blob/master/Tutorials/Python/PyLink/pylink.py)
+
+Enter your emoncms apikey in the script settings and then run to start recieving data.
+
+For a more complete python gateway see the Jerome's oem_gateway here which can also be used
+
+[https://github.com/Jerome-github/oem_gateway](https://github.com/Jerome-github/oem_gateway)
 
 <div class='alert alert-info'>
 
