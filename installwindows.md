@@ -39,7 +39,7 @@ When, in phpmyadmin, the database has been created, a new user must also be crea
 
 Download version 6.9, this is the last stable release known to work on windows (it does not use redis and can be used without timestore)
 
-    https://github.com/emoncms/emoncms/releases/tag/v6.9
+    [https://github.com/emoncms/emoncms/releases/tag/v6.9](https://github.com/emoncms/emoncms/releases/tag/v6.9)
 
     
 #### 6) Place emoncms in your WAMP public html / www directory
