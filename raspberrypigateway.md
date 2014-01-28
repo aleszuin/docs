@@ -24,7 +24,9 @@ Download pre-prepared 2GB SD card image:
 
 [Mirror 2 - DropBox](https://www.dropbox.com/l/iTKAMBEqCk9XuntdZUaGed)
 
-[Mirror 3 - OEM Servers (UK)](http://217.9.195.228/oem_gateway22oct2013.img.zip)
+[Mirror 3 - UK Server ](http://217.9.195.228/oem_gateway22oct2013.img.zip)
+
+[Mirror 4 - Europe Server](peppes-pizza.dk/oem/oem_gateway22oct2013.img.zip) 
 
 
 This image will unzip to fit on a 2GB SD card (min).
