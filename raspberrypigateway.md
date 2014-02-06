@@ -28,6 +28,9 @@ Download pre-prepared 2GB SD card image:
 
 [Mirror 4 - Europe Server](http://peppes-pizza.dk/oem/oem_gateway22oct2013.img.zip) 
 
+[Mirror 5 - USA Server](http://oem.aluminumalloyboats.com/oem/oem_gateway22oct2013.img.zip) 
+
+
 
 This image will unzip to fit on a 2GB SD card (min).
  
