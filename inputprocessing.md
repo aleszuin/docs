@@ -62,9 +62,9 @@ Input processes are executed sequentially with the result being passed back for 
 
 ---
 
-## kWhinc to kWh/d
+## Wh increments to kWh/d
 
-**Description:** Converts kWh increment since last post data into a kWh per day feed.
+**Description:** Converts Wh (not kWh!) increment since last post data into a kWh per day feed. 
 
 **Argument:** The feed name that you wish to write too. If the feed does not yet exist, this will create a feed of the given name.
 
@@ -72,17 +72,9 @@ Input processes are executed sequentially with the result being passed back for 
 
 ## kWh to kWh/d
 
-**Description:** Some datalogging equipment may just provide total kWh used or generated data, this can be used to convert this ever accumulating kWh variable to a kWh per day feed.
+**Description:** Some datalogging equipment may just provide total kWh used or generated data, this can be used to convert this ever accumulating kWh variable to a kWh per day feed. (Note: in a pinch you can use this after an accumulator process to log the daily increase in the accumulator to a feed).
 
 **Argument:** The feed name that you wish to write too. If the feed does not yet exist, this will create a feed of the given name. 
-
----
-
-## update feed @ time
-
-**Description:** Update a feed datapoint at a given time
-
-**Argument:** The feed name that you wish to update too. Time argument is passed by API, for example &time=TIME&json={power:200}
 
 ---
 
@@ -102,19 +94,19 @@ Input processes are executed sequentially with the result being passed back for 
 
 ---
 
-## phaseshift
+## Total pulse count to pulse increment 
 
-**Description:**
+**Description:** To be used where the input is the total number of pulses since some epoch (such as your meter's switch-on date) and does not reset each time the input is submitted to emonCMS. This process uses a feed to track the last value of the input, and passes on the change in input value only, which can be used for further processing. In the case that the input value has fallen, it is assumed that the pulse counter has rolled over, and the full value of the input is returned.
 
-**Argument:**
+**Argument:** The feed name that you wish to use to track the last input value. If the feed does not yet exist, this will create a feed of the given name. (Note that the pulse increment value is not logged to feed by this processor - that must be done in a subsequent step.)
 
 ---
 
-## accumulator
+## Accumulator
 
-**Description:**
+**Description:** This adds the input value to the current value of the accumulator and logs it to a feed. The new total value of the feed is returned for further processing if required.
 
-**Argument:**
+**Argument:** The feed name that you wish to use to log the accumulating value. If the feed does not yet exist, this will create a feed of the given name.
 
 ---
 
@@ -136,6 +128,23 @@ Input processes are executed sequentially with the result being passed back for 
 
 ## average
 
-**Description:** Calculates a daily average (mean) of a value 
+**Description:** Not currently supported.
 
 **Argument:**
+
+---
+
+## update feed @ time
+
+**Description:** Not currently supported.
+
+**Argument:** 
+
+---
+
+## phaseshift
+
+**Description:** not currently supported.
+
+**Argument:**
+
