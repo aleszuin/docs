@@ -33,7 +33,7 @@ If the card has more than one partition unmount that also:
 
 Locate the directory of your downloaded emoncms image in terminal and write it to an SD card using linux tool *dd*:
 
-<div class='alert alert-error'><i class='icon-fire'></i> <b>Warning:</b> take care with running the following command that your pointing at the right drive! If you point at your computer drive you will loose a lot of data!</div>
+<div class='alert alert-error'><i class='icon-fire'></i> <b>Warning:</b> take care with running the following command that your pointing at the right drive! If you point at your computer drive you will lose a lot of data!</div>
 
     $ sudo dd bs=4M if=2012-02-09-wheezy-raspbian.img of=/dev/sdb
 
