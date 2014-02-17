@@ -61,6 +61,16 @@ Login to emoncms with user 'raspi' and password 'raspberry'
 
 Return to the OpenEnergyMonitor Guide to setup your sensor nodes and map the inputs in emoncms: http://openenergymonitor.org/emon/guide
 
+#### 5) Login!
+Default username/password of the webinterface:<br>
+username: raspi<br>
+password: raspberry
+<br>
+<br>
+Default username/password of the ssh shell:<br>
+username: pi<br>
+password: raspberry<br>
+
 <div class='alert alert-info'>
 
 <h3>Note: Browser Compatibility</h3>
