@@ -41,7 +41,7 @@ Once complete insert the SD card into the PI and connect ethernet and power. All
 
 The next step is to connect to your PI via SSH from your computer, to do this find the ip address of the PI on your local network, then using linux terminal run:
 
-    $ SSH pi@xxx.xxx.xxx.xxx
+    $ ssh pi@xxx.xxx.xxx.xxx
 
 On windows you can do the above step with a nice bit of software called putty. Once you make the connection request the PI will ask for a password. The default password is 'raspberry'.
 
@@ -111,9 +111,15 @@ Install serial PHP libraries
 
     $ sudo apt-get install php-pear php5-dev
     $ sudo pecl install channel://pecl.php.net/dio-0.0.6
-    $ sudo nano /etc/php5/cli/php.ini
 
-add *extension=dio.so* to file in the beginning of the ;Dynamic Extensions; section on line 843. [Ctrl+W] then enter *Dynamic Extensions* can be used to search for the correct section  
+Create new file with extension needed by rfm12pi service
+
+    $ sudo nano /etc/php5/cli/conf.d/rfm12pi.ini
+
+and put there two lines line 
+
+    ;Dynamic Extension needed by Rfm12pi
+    extension=dio.so
 
 [Ctrl+X] then [y] then [Enter] to save and exit
 
