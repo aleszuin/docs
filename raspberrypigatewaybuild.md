@@ -156,7 +156,7 @@ Set oem gateway script to run at boot
 
     $ nano /etc/rc.local
 
-    (sleep 10; python /root/oem_gateway/oemgateway.py --config-file /boot/oemgateway.conf
+    (sleep 10; python /root/oem_gateway/oemgateway.py --config-file /boot/oemgateway.conf)&
 
 edit host name with
 
