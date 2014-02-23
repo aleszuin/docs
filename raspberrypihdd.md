@@ -43,13 +43,17 @@ With your own installation of emoncms its easier to add code modifications, impr
 ### Download image: 
 The images below have limited monthly bandwidth if you can help by mirroring the image please get in touch.
 
-#### Latest image 20 of January 2014
 
-**UK Mirror:** [2014-01-20-emoncms_raspberrypi_hdd_stack.tar.gz](http://217.9.195.228/2014-01-20-emoncms_raspberrypi_hdd_stack.zip) (1GB)
+#### Latest image 23 of Feb 2014
 
-**USA Mirror:** [2014-01-20-emoncms_raspberrypi_hdd_stack.tar.gz](http://oem.aluminumalloyboats.com/oem/2014-01-20-emoncms_raspberrypi_hdd_stack.zip) (1GB)
+Includes fix for missing drivers, thanks to forum member [pb66](http://openenergymonitor.org/emon/user/4440) for the fix, see [discussion thread](http://openenergymonitor.org/emon/node/3688) 
 
-#### Old image
+**UK Mirror:**  [2014-02-23-emoncms_raspberrypi_hdd_stack.zip](http://files.openenergymonitor.org/2014-02-23-emoncms_raspberrypi_hdd_stack.zip) (1.1Gb)
+
+**USA Mirror:** [2014-02-23-emoncms_raspberrypi_hdd_stack.zi](http://oem.aluminumalloyboats.com/oem/2014-02-23-emoncms_raspberrypi_hdd_stack.zi) (1.1GB)
+
+
+#### Older image
 **Mirror 1 UK:** [emoncms_raspberrypi_hdd_stack.tar.gz](http://217.9.195.228/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
 
 **Mirror 2 Europe** [emoncms_raspberrypi_hdd_stack.tar.gz](http://www.pizzacapri.dk/oem/emoncms_raspberrypi_hdd_stack.tar.gz) (791Mb)
