@@ -50,7 +50,7 @@ Includes fix for missing drivers, thanks to forum member [pb66](http://openenerg
 
 **UK Mirror:**  [2014-02-23-emoncms_raspberrypi_hdd_stack.zip](http://files.openenergymonitor.org/2014-02-23-emoncms_raspberrypi_hdd_stack.zip) (1.1Gb)
 
-**USA Mirror:** [2014-02-23-emoncms_raspberrypi_hdd_stack.zip](http://oem.aluminumalloyboats.com/oem/2014-02-23-emoncms_raspberrypi_hdd_stack.zi) (1.1GB)
+**USA Mirror:** [2014-02-23-emoncms_raspberrypi_hdd_stack.zip](http://oem.aluminumalloyboats.com/oem/2014-02-23-emoncms_raspberrypi_hdd_stack.zip) (1.1GB)
 
 
 #### Older image
