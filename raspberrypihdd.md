@@ -41,7 +41,6 @@ With your own installation of emoncms its easier to add code modifications, impr
 
 
 ### Download image: 
-The images below have limited monthly bandwidth if you can help by mirroring the image please get in touch.
 
 
 #### Latest image 23 of Feb 2014
