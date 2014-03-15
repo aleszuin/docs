@@ -1,107 +1,28 @@
-<br>
-# Install Emoncms on Ubuntu / Debian Linux
+# Install Emoncms v8 on Ubuntu / Debian Linux
 
-This guide should work on most debian systems including Ubuntu. For installation guide on installing emoncms on a raspberrypi see [raspberrypi from ready-to-go image](http://emoncms.org/site/docs/raspberrypiimage) or [raspberrypi build from scratch](http://emoncms.org/site/docs/raspberrypibuild).
+This guide should work on most debian systems including Ubuntu. For installation guide on installing emoncms on a raspberrypi see raspberrypi installation guides.
 
-## Emoncms v7 (redis)
+## Install dependencies
 
-As part of recent work to improve the performance of emoncms because of high load's on emoncms.org redis was introduced to store feed and input meta data including last feed time and value fields which where causing significant write load on the server. This change benefits all installation types of emoncms whether emoncms.org or a raspberrypi as it siginficantly reduces the amount of disk writes. 
+You may need to start by updating the system repositories
 
-Using redis in this way leads to quite a big performance improvement. Enabling almost 5 times the request rate in benchmarking.
+    sudo apt-get update
 
-Blog post: [http://openenergymonitor.blogspot.co.uk/2013/11/improving-emoncms-performance-with_8.html](http://openenergymonitor.blogspot.co.uk/2013/11/improving-emoncms-performance-with_8.html)
+Install all dependencies:
 
-To upgrade you will need redis server installed and the phpredis client:
+    sudo apt-get install apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear php5-dev php5-mcrypt git-core redis-server build-essential ufw ntp
 
-    sudo apt-get install redis-server
-    sudo pecl install redis
+Install pecl dependencies (serial, redis and swift mailer)
+
+    sudo pear channel-discover pear.swiftmailer.org
+    sudo pecl install channel://pecl.php.net/dio-0.0.6 redis swift/swift
     
-Add pecl redis module to php5 config
+Add pecl modules to php5 config
     
+    sudo sh -c 'echo "extension=dio.so" > /etc/php5/apache2/conf.d/20-dio.ini'
+    sudo sh -c 'echo "extension=dio.so" > /etc/php5/cli/conf.d/20-dio.ini'
     sudo sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
     sudo sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
-
-## v6 (timestore+)
-
-Emoncms version 6 brings in the capability of a new feed storage engine called timestore.
-Timestore is time-series database designed specifically for time-series data developed by Mike Stirling.
-
-[mikestirling.co.uk/redmine/projects/timestore](mikestirling.co.uk/redmine/projects/timestore)
-
-Timestore's advantages:
-
-**Faster Query speeds**
-With timestore feed data query requests are about 10x faster (2700ms using mysql vs 210ms using timestore).
-*Note:* initial benchmarks show timestore request time to be around 45ms need to investigate the slightly slower performance may be on the emoncms end rather than timestore.
-
-**Reduced Disk use**
-Disk use is also much smaller, A test feed stored in an indexed mysql table used 170mb, stored using timestore which does not need an index and is based on a fixed time interval the same feed used 42mb of disk space. 
-
-**In-built averaging**
-Timestore also has an additional benefit of using averaged layers which ensures that requested data is representative of the window of time each datapoint covers.
-
-### Using MYSQL or PHPTimeSeries instead of Timestore
-
-If your a familiar with mysql and want to use mysql to do your own queries and processing of the feed data you may want to select mysql as the default data store rather than timestore. The disadvantage of MYSQL is that it is much slower than timestore for common timeseries queries such as zooming through timeseries data.
-
-There is also another feed engine called PHPTimeSeries which provides improved timeseries query speed than mysql but is still slower than timestore. Its main avantages is that it does not require additional installation of timestore as it uses native php file access, it also stores the data in the same data file .MYD format as mysql which means you can switch from mysql to phptimeseries by copying the .MYD mysql data files directly out of your mysql directory into the PHPTimeSeries directory without additional conversion.
-
-To select either MYSQL or PHPTimeSeries instead of timestore as your default engine set the default engine setting in the emoncms settings.php file to:
-
-    $default_engine = Engine::MYSQL;
-    
-or: 
-
-    $default_engine = Engine::PHPTIMESERIES;
-    
-If you do not wish to use timestore you can skip to step 2 of the installation process.
-
-If you want to try PHPTimeSeries see optional PHPTimeSeries step below.
-
-## 1) Download, make and start timestore
-
-    sudo apt-get install build-essential
-    cd /home/yourusername
-    git clone https://github.com/TrystanLea/timestore
-    cd timestore
-    sudo sh install
-    
-**Note the adminkey** at the end as you will want to paste this into the emoncms settings.php file.
-
-If the adminkey could not be found, it may be that timestore failed to start:
-
-To check if timestore is running type:
-
-    sudo /etc/init.d/timestore status
-    
-Start, stop and restart it with:
-
-    sudo /etc/init.d/timestore start
-    sudo /etc/init.d/timestore stop
-    sudo /etc/init.d/timestore restart
-    
-To read the adminkey manually type:
-
-    cat /var/lib/timestore/adminkey.txt
-    
-## (Optional) Create PHPTimeSeries data folder
-
-If you wish to try the phptimeseries engine:
-
-    sudo mkdir /var/lib/phptimeseries
-    sudo chown www-data:root /var/lib/phptimeseries
-
-## 2) Install Apache, Mysql and PHP (LAMP Server)
-    
-When installing mysql and the blue dialog appears enter a password for root user, note the password down as you will need it later.
-
-    $ sudo apt-get install apache2
-    $ sudo apt-get install mysql-server mysql-client
-    $ sudo apt-get install php5 libapache2-mod-php5
-    $ sudo apt-get install php5-mysql
-    $ sudo apt-get install php5-curl
-    
-## 3) Enable mod rewrite
 
 Emoncms uses a front controller to route requests, modrewrite needs to be configured:
 
@@ -115,12 +36,10 @@ That is the sections <Directory /> and <Directory /var/www/>.
 Restart the lamp server:
 
     $ sudo /etc/init.d/apache2 restart
-
-## 4) Install the emoncms application via git
+    
+### Install the emoncms application via git
 
 Git is a source code management and revision control system but at this stage we use it to just download and update the emoncms application.
-
-    $ sudo apt-get install git-core
 
 First cd into the var directory:
 
@@ -141,14 +60,8 @@ Download emoncms using git:
 Once installed you can pull in updates with:
 
     git pull
-
-Alternatively download emoncms and unzip to your server:
-
-[https://github.com/emoncms/emoncms](https://github.com/emoncms/emoncms)
-
-Note: Be aware that installing Emoncms to any directory other than /var/www/ will break the data import scripts. (see http://openenergymonitor.org/emon/node/1329#comment-7526).
-
-## 5) Create a MYSQL database
+    
+### Create a MYSQL database
 
     $ mysql -u root -p
 
@@ -160,8 +73,18 @@ Then enter the sql to create a database:
 Exit mysql by:
 
     mysql> exit
+    
+### Create data repositories for emoncms feed engine's
 
-## 6) Set emoncms database settings.
+    sudo mkdir /var/lib/phpfiwa
+    sudo mkdir /var/lib/phpfina
+    sudo mkdir /var/lib/phptimeseries
+
+    sudo chown www-data:root /var/lib/phpfiwa
+    sudo chown www-data:root /var/lib/phpfina
+    sudo chown www-data:root /var/lib/phptimeseries
+
+### Set emoncms database settings.
 
 cd into the emoncms directory where the settings file is located
 
@@ -182,44 +105,42 @@ Enter in your database settings.
     $server   = "localhost";
     $database = "emoncms";
 
-If your using timestore enter the adminkey as copied in step 1 above:
-    
-    $timestore_adminkey = "";
-    
-If your not using timestore set the default engine to your selected engine:
-
-    $default_engine = Engine::MYSQL;
-    
-or
-
-    $default_engine = Engine::PHPTIMESERIES;
-
 Save (Ctrl-X), type Y and exit
 
-## 7) In an internet browser, load emoncms:
+### Install add-on emoncms modules
+    
+    cd /var/www/emoncms/Modules
+    
+    git clone https://github.com/emoncms/raspberrypi.git
+    git clone https://github.com/emoncms/event.git
+    git clone https://github.com/emoncms/openbem.git
+    git clone https://github.com/emoncms/energy.git
+    git clone https://github.com/emoncms/notify.git
+    git clone https://github.com/emoncms/report.git
+    git clone https://github.com/emoncms/packetgen.git
+    git clone https://github.com/elyobelyob/mqtt.git
+ 
+See individual module readme's for further information on individual module installation.
 
-<div class='alert alert-info'>
-
-<h3>Note: Browser Compatibility</h3>
-
-<p><b>Chrome Ubuntu 23.0.1271.97</b> - developed with, works great.</p>
-
-<p><b>Chrome Windows 25.0.1364.172</b> - quick check revealed no browser specific bugs.</p>
-
-<p><b>Firefox Ubuntu 15.0.1</b> - no critical browser specific bugs, but movement in the dashboard editor is much less smooth than chrome.</p>
-
-<p><b>Internet explorer 9</b> - works well with compatibility mode turned off. F12 Development tools -> browser mode: IE9. Some widgets such as the hot water cylinder do load later than the dial.</p>
-
-<p><b>IE 8, 7</b> - not recommended, widgets and dashboard editor <b>do not work</b> due to no html5 canvas fix implemented but visualisations do work as these have a fix applied.</p>
-
-</div>
+### In an internet browser, load emoncms:
 
 [http://localhost/emoncms](http://localhost/emoncms)
 
 The first time you run emoncms it will automatically setup the database and you will be taken straight to the register/login screen. 
 
-Create an account by entering your email and password and clicking register to complete. 
-<br><br>
+Create an account by entering your email and password and clicking register to complete.
+
+#### Note: Browser Compatibility
+
+**Chrome Ubuntu 23.0.1271.97** - developed with, works great.
+
+**Chrome Windows 25.0.1364.172** - quick check revealed no browser specific bugs.
+
+**Firefox Ubuntu 15.0.1** - no critical browser specific bugs, but movement in the dashboard editor is much less smooth than chrome.
+
+**Internet explorer 9** - works well with compatibility mode turned off. F12 Development tools -> browser mode: IE9. Some widgets such as the hot water cylinder do load later than the dial.
+
+**IE 8, 7** - not recommended, widgets and dashboard editor <b>do not work</b> due to no html5 canvas fix implemented but visualisations do work as these have a fix applied.
 
 #### PHP Suhosin module configuration (Debian 6, not required in ubuntu)
 
@@ -233,3 +154,28 @@ value (8000, 16000 should be fine).
 #### Enable Multi lingual support using gettext
 
 Follow the guide here step 4 onwards: [http://emoncms.org/site/docs/gettext](http://emoncms.org/site/docs/gettext)
+
+#### Configure PHP Timezone
+
+PHP 5.4.0 has removed the timezone guessing algorithm and now defaults the timezone to "UTC" on some distros (i.e. Ubuntu 13.10). To resolve this:
+
+Open php.ini
+
+    sudo vi /etc/php5/apache2/php.ini
+
+and search for "date.timezone"
+
+    [Date]
+    ; Defines the default timezone used by the date functions.
+    ; http://php.net/date.timezone
+    ;date.timezone =
+
+edit date.timezone to your appropriate timezone:
+
+    date.timezone = "Europe/Amsterdam"
+    
+PHP supported timezones are listed here: http://php.net/manual/en/timezones.php
+
+Now save and close and restart your apache.
+
+    sudo /etc/init.d/apache2 restart
