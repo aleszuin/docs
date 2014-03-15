@@ -37,9 +37,9 @@ When, in phpmyadmin, the database has been created, a new user must also be crea
 
 #### 5) Download emoncms
 
-Download version 6.9, this is the last stable release known to work on windows (it does not use redis and can be used without timestore)
+Download version 8.
 
-[https://github.com/emoncms/emoncms/releases/tag/v6.9](https://github.com/emoncms/emoncms/releases/tag/v6.9)
+[https://github.com/emoncms/emoncms/archive/master.zip](https://github.com/emoncms/emoncms/archive/master.zip)
 
     
 #### 6) Place emoncms in your WAMP public html / www directory
@@ -53,25 +53,39 @@ Inside the first emoncms-master directory is another emoncms-master directory, r
 
 Copy this second folder thats now called emoncms to your www directory.
 
-#### 7) Set emoncms settings.php
+#### 7) Create the emoncms data directory
 
-Copy default.settings.php and rename to settings.php. Enter your database username, password, server and database name.
+Create a folder on your system for emoncms data to be saved in to, ie:
 
-Change the $default_engine settings from:
+    C:\Users\Username\emoncmsdata
 
-    $default_engine = Engine::TIMESTORE;
+Inside this folder create 3 other folders: phpfiwa, phpfina and phptimeseries, these are the main feed engines used by emoncms.
 
-to
+#### 8) Set emoncms settings.php
 
-    $default_engine = Engine::MYSQL;
+Copy default.settings.php and rename to settings.php. Enter your database username, password, server and database name. 
 
-#### 8) Thats it! Open emoncms in your browser
+In the feedsettings section uncomment the datadir defenitions and set them to the location of each of the feed engine data folders on your system:
+    
+    'phpfiwa'=>array(
+        'datadir'=>"C:\Users\Username\emoncmsdata\phpfiwa\"
+    ),
+    'phpfina'=>array(
+        'datadir'=>"C:\Users\Username\emoncmsdata\phpfina\"
+    ),
+    'phptimeseries'=>array(
+        'datadir'=>"C:\Users\Username\emoncmsdata\phptimeseries\"
+    )
+
+A space at the end (ie: phpfiwa ") may be needed on some systems.
+
+#### 9) Thats it! Open emoncms in your browser
 
 [http://localhost/emoncms](http://localhost/emoncms)
     
 Click on register and create a new user. It should now log you in and you will see the accounts page.
 
-#### 9) Sending some data to emoncms
+#### 10) Sending some data to emoncms
 
 Click on the input tab and then *Input API Help*
 
@@ -94,46 +108,6 @@ If you now repeat sending data via:
 The data will now be being stored in a feed table.
 
 After sending say 5-10 values. Navigate to *Feeds* and click on the eye button and zoom in to the last few minutes. You should see a line being drawn. If you dont see anything yet, keep sending data over a period of a couple of minutes and vary the input values.
-
-### Using the PHPTimeSeries feed engine (optional)
-
-There are 3 feed engine options available in emoncms. Timestore is the highest performance engine but is as yet untested on windows.
-
-If your a familiar with mysql and want to use mysql to do your own queries and processing of the feed data you may want to use mysql rather than the other engines. The disadvantage of MYSQL is that it is much slower than timestore for common timeseries queries such as zooming through timeseries data, especially when there is a lot of data.
-
-There is also another feed engine called PHPTimeSeries which provides improved timeseries query speed vs mysql but is still slower than timestore. Its main avantages is that it does not require additional installation of timestore as it uses native php file access, it also stores the data in the same data file .MYD format as mysql which means you can switch from mysql to phptimeseries at a later date (say when query speeds get to slow for you with mysql) by copying the .MYD mysql data files directly out of your mysql directory into the PHPTimeSeries directory without additional conversion. 
-
-To use PHPTimeSeries on windows first create a directory on your computer in which you would like to store your feed data and copy the path name, ie:
-
-    C:\Users\Username\phptimeseries
-
-Open the www directory via the WAMP icon menu.
-
-Open the PHPTimeSeries.php engine script which can be found in:
-
-    emoncms/Modules/feed/engine/PHPTimeSeries.php
-    
-Edit the line:
-
-    private $dir = "/var/lib/phptimeseries/";
-  
-change to:
-
-    private $dir = "C:\Users\Username\phptimeseries ";
-  
-The space at the end may be needed on some systems, on the second system this was tested on the following worked:
-
-    private $dir = "C:\Users\Username\phptimeseries\";
-
-Open your settings.php file and change
-
-    $default_engine = Engine::MYSQL;
-
-to:
-
-    $default_engine = Engine::PHPTIMESERIES;
-
-Try creating new feeds as above and check that the feeds appear in the directory you created, they will have a .MYD extention.
 
 ### Using a jeelink to recieve data from wireless sensing nodes and forward to emoncms
 
