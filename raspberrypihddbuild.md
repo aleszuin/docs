@@ -36,16 +36,6 @@ Install all dependencies:
 
     sudo apt-get install apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear php5-dev php5-mcrypt git-core redis-server build-essential ufw ntp
 
-Install timestore:
-
-    cd /home/yourusername
-    git clone https://github.com/TrystanLea/timestore
-    cd timestore
-    sudo sh install
-    
-    sudo mkdir /var/lib/phptimeseries
-    sudo chown www-data:root /var/lib/phptimeseries
-
 Install pecl dependencies (serial, redis and swift mailer)
 
     sudo pear channel-discover pear.swiftmailer.org
@@ -57,8 +47,6 @@ Add pecl modules to php5 config
     sudo sh -c 'echo "extension=dio.so" > /etc/php5/cli/conf.d/20-dio.ini'
     sudo sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
     sudo sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
-
-### Enable mod rewrite
 
 Emoncms uses a front controller to route requests, modrewrite needs to be configured:
 
@@ -145,7 +133,7 @@ Cd into www directory
 
 Download emoncms using git:
 
-    $ git clone -b redismetadata https://github.com/emoncms/emoncms.git
+    $ git clone https://github.com/emoncms/emoncms.git
     
 Once installed you can pull in updates with:
 
@@ -163,6 +151,16 @@ Then enter the sql to create a database:
 Exit mysql by:
 
     mysql> exit
+    
+### Create data repositories for emoncms feed engine's
+
+    sudo mkdir /var/lib/phpfiwa
+    sudo mkdir /var/lib/phpfina
+    sudo mkdir /var/lib/phptimeseries
+
+    sudo chown www-data:root /var/lib/phpfiwa
+    sudo chown www-data:root /var/lib/phpfina
+    sudo chown www-data:root /var/lib/phptimeseries
 
 ### Set emoncms database settings.
 
@@ -185,34 +183,22 @@ Enter in your database settings.
     $server   = "localhost";
     $database = "emoncms";
 
-If your using timestore enter the adminkey as copied in step 1 above:
-    
-    $timestore_adminkey = "";
-    
-If your not using timestore set the default engine to your selected engine:
-
-    $default_engine = Engine::MYSQL;
-    
-or
-
-    $default_engine = Engine::PHPTIMESERIES;
-
 Save (Ctrl-X), type Y and exit
 
 ### Install add-on emoncms modules
 
-Install additional modules:
-    
     cd /var/www/emoncms/Modules
     
-    git clone -b redismetadata https://github.com/emoncms/raspberrypi.git
-    git clone -b redismetadata https://github.com/emoncms/event.git
+    git clone https://github.com/emoncms/raspberrypi.git
+    git clone https://github.com/emoncms/event.git
     git clone https://github.com/emoncms/openbem.git
     git clone https://github.com/emoncms/energy.git
     git clone https://github.com/emoncms/notify.git
     git clone https://github.com/emoncms/report.git
     git clone https://github.com/emoncms/packetgen.git
     git clone https://github.com/elyobelyob/mqtt.git
+    
+See individual module readme's for further information on individual module installation.
             
 Install rfm12piphp gateway service:
 

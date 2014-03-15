@@ -1,13 +1,9 @@
-## Building the full emoncms on the raspberrypi software stack
-
-**Exploring a decentralised energy monitoring data storage architecture** - *by Trystan Lea*
-
-The oem gateway forwarder makes a simple raspberry pi setup but it requires a remote server for data storage and visualisation such as emoncms.org. While this may be useful for many applications such as open data or for monitors with barebone basestations such as the NanodeRF there may be situations where a local-only or served locally setup is more applicable. The aim of the full emoncms on the raspberrypi software stack is to create an option that does not require a remote server. Data is stored locally on the raspberrypi with an optional but recommended automated periodic backup to your main computer.
+## Emoncms on the RaspberryPI: Partitioned SD Card (Experimental)
 
 <div class="alert alert-info">
 <p>This guide details how to build the full software stack for running emoncms on the raspberry pi.</p>
 
-<p><b>New features in this experimental build: </b><br>
+<p><b>Features in this experimental build: </b><br>
 
 <p><b>Two partitions (read-only OS & read-write data):</b><br>New in this version of the "full stack" build is that the operating system (debian linux) is placed on a read-only partition as is done with the rock solid gateway forwarder. A second partition is then used for storing monitored data. This should provide for a more robust setup in that at least in the event of a failure on the writeable data partition the SD card should boot and be functional as a simple gateway forwarder.</p>
 
@@ -15,11 +11,6 @@ The oem gateway forwarder makes a simple raspberry pi setup but it requires a re
 
 <p>With a simple system with a few energy monitoring and temperature nodes posting show a reducion in the write rate of about 45%</p>
 </div>
-
-The older full emoncms on the pi build guide and ready to go image can be found here: 
-[Old full stack emoncms raspberrypi build and image](http://emoncms.org/site/docs/raspberrypibuild)
-
-<p><b>There will be a ready to go image available of the build below very soon.</b></p>
 
 Start by either installing the oem_gateway image as detailed [here](http://emoncms.org/site/docs/raspberrypigateway) or if you wish follow the gateway installation guide [here](http://emoncms.org/site/docs/raspberrypigatewaybuild).
 
@@ -93,91 +84,29 @@ Add the line:
 tep
     /dev/mmcblk0p3  /daSta           ext2    errors=remount-ro 0     0
 
-### Step 3: Install Apache, PHP, MySQL, Timestore and Redis
+### Step 3: Install Apache, PHP, MySQL, Redis
+
+You may need to start by updating the system repositories
 
     apt-get update
     
-    mkdir /data/log
-    
 Install dependencies
     
-    sudo apt-get install apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear php5-dev php5-mcrypt git-core redis-server build-essential ufw ntp
+    apt-get install apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear php5-dev php5-mcrypt git-core redis-server build-essential ufw ntp
     
 Install pecl dependencies (serial, redis and swift mailer)
 
-    sudo pear channel-discover pear.swiftmailer.org
-    sudo pecl install channel://pecl.php.net/dio-0.0.6 redis swift/swift
+    pear channel-discover pear.swiftmailer.org
+    pecl install channel://pecl.php.net/dio-0.0.6 redis swift/swift
 
 Add pecl modules to php5 config
 
-    sudo sh -c 'echo "extension=dio.so" > /etc/php5/apache2/conf.d/20-dio.ini'
-    sudo sh -c 'echo "extension=dio.so" > /etc/php5/cli/conf.d/20-dio.ini'
-    sudo sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
-    sudo sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
+    sh -c 'echo "extension=dio.so" > /etc/php5/apache2/conf.d/20-dio.ini'
+    sh -c 'echo "extension=dio.so" > /etc/php5/cli/conf.d/20-dio.ini'
+    sh -c 'echo "extension=redis.so" > /etc/php5/apache2/conf.d/20-redis.ini'
+    sh -c 'echo "extension=redis.so" > /etc/php5/cli/conf.d/20-redis.ini'
 
-Create directories on read/write partition for mysql
-
-    mkdir /data/mysql
-    cp -rp /var/lib/mysql/. /data/mysql
-    
-and redis:
-    
-    mkdir /data/redis
-    chown redis:redis /data/redis
-    mkdir /data/log/redis
-    chown redis:redis /data/log/redis
-    
-Install timestore
-
-    cd
-    git clone https://github.com/TrystanLea/timestore
-
-    mkdir /data/timestore
-
-Edit timestore data directory 
-
-    nano timestore/src/main.c
-    
-Change line 43 from
-
-    #define DEFAULT_DB_PATH "/var/lib/timestore"
-    
-to
-
-    #define DEFAULT_DB_PATH "/data/timestore"
-    
-and change line 44 to:
-
-    #define DEFAULT_LOG_FILE "/var/log/timestore.log"
-    
-to
-
-    #define DEFAULT_LOG_FILE "/data/log/timestore.log"
-    
-Save and exit.
-
-Make timestore:
-
-    cd timestore
-    make
-
-Install timestore init script:
-
-    echo "DIRECTORY=/root/timestore/src/" > /etc/default/timestore
-    
-change entries in init script from 
-
-    /var/lib/timestore/adminkey.txt
-    
-to 
-
-    /data/timestore/adminkey.txt
-    
-    cp initscript/timestore /etc/init.d/
-    chmod 755 /etc/init.d/timestore
-    update-rc.d timestore defaults
-
-Apache mod rewrite and log settings:
+Emoncms uses a front controller to route requests, modrewrite needs to be configured:
 
     a2enmod rewrite
     nano /etc/apache2/sites-enabled/000-default
@@ -186,9 +115,13 @@ Change (line 7 and line 11), "AllowOverride None" to "AllowOverride All".
 Turn off the access.log by adding a # in front of the line that starts with CustomLog. 
 [Ctrl + X ] then [Y] then [Enter] to Save and exit.
 
-    nano /etc/apache2/conf.d/other-vhosts-access-log
+### Data directory setup on write data partition
 
-Place a # in front of CustomLog again, save and exit.
+Log directory:
+
+    mkdir /data/log
+    
+Apache log directory:
 
     nano /etc/apache2/envvars
     
@@ -196,30 +129,47 @@ Place a # in front of CustomLog again, save and exit.
     
     mkdir /data/log/apache2
     
-MYSQL log and data location settings
+Mysql directory:
 
+    mkdir /data/mysql
+    cp -rp /var/lib/mysql/. /data/mysql
+    
     nano /etc/mysql/my.cnf
-
     change line datadir to /data/mysql
-
-Redis settings
-
+    
+and redis:
+    
+    mkdir /data/redis
+    chown redis:redis /data/redis
+    mkdir /data/log/redis
+    chown redis:redis /data/log/redis
+    
     nano /etc/redis/redis.conf
 
 set LogFile location to /data/log/redis/redis-server.log
 
     change save to: save 900 1 only
 
-change working directory
+Turn off vhosts access log, place a # in front of CustomLog again, save and exit.
 
-    mkdir /data/phptimeseries
+    nano /etc/apache2/conf.d/other-vhosts-access-log
+
+### Create data repositories for emoncms feed engine's
+
+    sudo mkdir /data/emoncmsdata/phpfiwa
+    sudo mkdir /data/emoncmsdata/phpfina
+    sudo mkdir /data/emoncmsdata/phptimeseries
+
+    sudo chown www-data:root /data/emoncmsdata/phpfiwa
+    sudo chown www-data:root /data/emoncmsdata/phpfina
+    sudo chown www-data:root /data/emoncmsdata/phptimeseries
 
 ### Install emoncms
 
-Download the latest version of the redismetadata emoncms branch:
+Download emoncms:
 
     cd /var/www
-    git clone -b redismetadata https://github.com/emoncms/emoncms.git
+    git clone https://github.com/emoncms/emoncms.git
     
 Create mysql database for emoncms:
 
@@ -234,9 +184,17 @@ First create a copy of default.settings.php called settings.php:
     
 Use the mysql user, password and database name as used when creating the emoncms database.
 
-The timestore adminkey can be found by calling:
-
-    cat /data/timestore/adminkey.txt
+In the feedsettings section uncomment the datadir defenitions and set them to the location of each of the feed engine data folders on your system:
+    
+    'phpfiwa'=>array(
+        'datadir'=>"/data/emoncmsdata/phpfiwa/"
+    ),
+    'phpfina'=>array(
+        'datadir'=>"/data/emoncmsdata/phpfina/"
+    ),
+    'phptimeseries'=>array(
+        'datadir'=>"/data/emoncmsdata/phptimeseries/"
+    )
 
 ### Install raspberrypi module
 
@@ -348,6 +306,9 @@ Install usefulscripts
 Port data across from second raspberrypi or emoncms.org account
 
 ### Setting up your main computer to automatically download the latest data from the raspberrypi.
+
+
+#### Script needs updating to work with v8
 
 This section is to be written next. There are a couple of scripts available in the usefulscripts repository that can automatically download latest data from the raspberrypi to an installation of emoncms on your main computer.
 

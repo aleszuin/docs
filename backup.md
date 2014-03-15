@@ -34,3 +34,26 @@ Run the backup script with sudo
     sudo php import_full.php
 
 That's it, it should now work through all your feeds whether mysql or timestore making a local backup. When you first run this script it can take a long time. When you run this script again it will only download the most recent data and so will complete much faster.
+
+### Approach 2
+
+Start by making a backup of your emoncms data and emoncms application folder.
+
+To export a backup of your emoncms mysql data: 
+
+    mysqldump -u root -p emoncms > emoncms_backup.sql
+    
+Or if you have a lot of feed data stored in mysql, you can export the meta data only with:
+    
+    mysqldump -u root -p emoncms users input feeds dashboard multigraph > emoncms_backup.sql
+    
+You can make a direct directory copy of the /var/lib/mysql/emoncms folder if the mysql dump is too large.
+
+Make a backup copy of the feed data folders on your system, the default locations on linux are:
+
+    /var/lib/phpfiwa
+    /var/lib/phpfina
+    /var/lib/phptimeseries
+    /var/lib/timestore
+
+Make a copy of the emoncms application folder usually found under /var/www/emoncms
