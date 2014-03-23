@@ -68,16 +68,16 @@ Copy default.settings.php and rename to settings.php. Enter your database userna
 In the feedsettings section uncomment the datadir defenitions and set them to the location of each of the feed engine data folders on your system:
     
     'phpfiwa'=>array(
-        'datadir'=>"C:\Users\Username\emoncmsdata\phpfiwa\"
+        'datadir'=>"C:\\Users\\Username\\emoncmsdata\\phpfiwa\\"
     ),
     'phpfina'=>array(
-        'datadir'=>"C:\Users\Username\emoncmsdata\phpfina\"
+        'datadir'=>"C:\\Users\\Username\\emoncmsdata\\phpfina\\"
     ),
     'phptimeseries'=>array(
-        'datadir'=>"C:\Users\Username\emoncmsdata\phptimeseries\"
+        'datadir'=>"C:\\Users\\Username\\emoncmsdata\\phptimeseries\\"
     )
 
-A space at the end (ie: phpfiwa ") may be needed on some systems.
+On Windows '\' must be escaped with another '\' hence the '\\'
 
 #### 9) Thats it! Open emoncms in your browser
 
