@@ -10,7 +10,7 @@ You may need to start by updating the system repositories
 
 Install all dependencies:
 
-    sudo apt-get install apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear php5-dev php5-mcrypt git-core redis-server build-essential ufw ntp
+    sudo apt-get install apache2 mysql-server mysql-client php5 libapache2-mod-php5 php5-mysql php5-curl php-pear php5-dev php5-mcrypt php5-json git-core redis-server build-essential ufw ntp
 
 Install pecl dependencies (serial, redis and swift mailer)
 
@@ -27,7 +27,7 @@ Add pecl modules to php5 config
 Emoncms uses a front controller to route requests, modrewrite needs to be configured:
 
     $ sudo a2enmod rewrite
-    $ sudo nano /etc/apache2/sites-enabled/000-default
+    $ sudo nano /etc/apache2/sites-available/000-default
 
 Change (line 7 and line 11), "AllowOverride None" to "AllowOverride All".
 That is the sections <Directory /> and <Directory /var/www/>.
