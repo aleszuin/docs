@@ -50,8 +50,7 @@ Each of these processes uses the value returned by the previous process in the c
 
 ### kWh to kWh/d
 
-**Description:** Some datalogging equipment may just provide total kWh used or generated data, this can be used to convert this ever accumulating kWh variable to a kWh per day feed.
-
+**Description:** Some datalogging equipment may just provide total kWh used or generated data, this can be used to convert this ever accumulating kWh variable to a kWh per day feed. (Note: in a pinch you can use this after an accumulator process to log the daily increase in the accumulator to a feed).
 **Argument:** The feed name that you wish to write to. a feed can be created if it doesn't already exist. 
 
 ### kWh to Power
