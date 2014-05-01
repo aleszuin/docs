@@ -8,7 +8,12 @@ Download the raspbian image and write to the SD card and Harddrive.
 
 ### Change /boot/cmdline.txt
 
-Mount the SD Card on your computer and open the boot partition. Open to edit the file:
+Paul from the OpenEnergyMonitor forums has written an alternative guide for setting up the Pi with file system on a hard drive which should be easier for those running Windows, see forum post: 
+
+[http://openenergymonitor.org/emon/node/5092] (http://openenergymonitor.org/emon/node/5092) 
+
+
+Mount the SD Card on your computer and open the boot) partition. Open to edit the file:
 
     /boot/cmdline.txt
     
