@@ -1,8 +1,13 @@
 # Raspberry Pi Gateway
 
-This is a reliable solution which is simple to setup and works well if you just want to forward data to a remote emoncms server like emoncms.org.
+This is a reliable solution which is simple to setup and works well to forward data directly to a remote emoncms server like [emoncms.org](http://emoncms.org).
 
-It uses a read only file system approach as developed by Martin Harizanov which means its not susceptible to the SD Card failure issue from too many writes:
+It uses a read-only file system approach which means its not susceptible to SD Card failure from too many writes:
+
+#### If you have bought the [pre-loaded SD card](http://shop.openenergymonitor.com/pre-loaded-raspberry-pi-base-station-gateway-sd-card/) from the OpenEnergyMonitor shop jump stright to step 3) 
+
+
+Background Info:
 
 [http://harizanov.com/2013/08/rock-solid-rfm2pi-gateway-solution/](http://harizanov.com/2013/08/rock-solid-rfm2pi-gateway-solution/)
 
@@ -98,8 +103,9 @@ This gives the Mac the ability to read and write to other filesystems, and and f
 After installing the drive will appear on your desktop allowing you to view an equivalent window to the one above.
 
 
-The first part to configure it the group and frequency of the rfm12pi.
-The group and frequency set here needs to be the same as used on any sensor nodes.
+The first part to configure is the group and frequency of the rfm12pi.
+The group and frequency set here needs to be the same as used on any sensor nodes. For best range performance the frequency should match the RF hardware module. 
+**The default network group for all units from the OpenEnergyMonitor shop is 210**
 
 For the frequency setting: 8 used as shorthand for 868Mhz and 4 for 433Mhz. 
 
