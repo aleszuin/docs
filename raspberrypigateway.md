@@ -105,6 +105,7 @@ After installing the drive will appear on your desktop allowing you to view an e
 
 The first part to configure is the group and frequency of the rfm12pi.
 The group and frequency set here needs to be the same as used on any sensor nodes. For best range performance the frequency should match the RF hardware module. 
+
 **The default network group for all units from the OpenEnergyMonitor shop is 210**
 
 For the frequency setting: 8 used as shorthand for 868Mhz and 4 for 433Mhz. 
