@@ -55,5 +55,7 @@ Make a backup copy of the feed data folders on your system, the default location
     /var/lib/phpfina
     /var/lib/phptimeseries
     /var/lib/timestore
+    
+**Important** Make sure you disable oem\_gateway/emonhub or raspberrypi\_run and any posting to the http api's (stop apache) before copying the data files so that when you make the copy the data is in a state where its not being written to.
 
 Make a copy of the emoncms application folder usually found under /var/www/emoncms
