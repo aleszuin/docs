@@ -28,7 +28,7 @@ With your own installation of emoncms its easier to add code modifications, impr
 - [**Notify**](http://github.com/emoncms/notify) module sends an email if feeds become inactive
 - [**Energy**](http://github.com/emoncms/energy) module. Create a [David MacKay](http://withouthotair.com) style energy stack
 - [**OpenBEM**](http://github.com/emoncms/openbem) module. Open Source Building Energy Model. Investigate the thermal performance of buildings.
-- [**Report**](http://github.com/emoncms/report) module. Create's electricity use reports including appliance list exercise.
+- [**Report**](http://github.com/emoncms/report) module. Creates electricity use reports including appliance list exercise.
 
 ### What you will need
 
@@ -124,7 +124,7 @@ Select the image as downloaded above.
 
 ### Bootup & login
 
-Plug HDD into the USB hub, plug the output from the hub (type B USB) into the USD port on the Pi (type A) and connect power to the pi via the micro usb port into another type-A USB socket on the hub. Instert the SD card with boot.img written to it into the Pi and connect the power to the USB hub. You should here the HDD spin up and start loading the OS in a few seconds. 
+Plug the HDD into the USB hub, plug the output from the hub (type B USB) into the USB port on the Pi (type A) and connect power to the pi via the micro usb port into another type-A USB socket on the hub. Instert the SD card with boot.img written to it into the Pi and connect the power to the USB hub. You should hear the HDD spin up and start loading the OS in a few seconds. 
 
 Browse to the Pi's local IP address in your web broswer (you can find this from your router (I prefer using an Android/Iphone app called Fing) and you should see an emoncms login page. The default login is:
 	
