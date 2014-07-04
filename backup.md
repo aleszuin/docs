@@ -1,41 +1,31 @@
 ## Backing up a raspberrypi or emoncms.org account
 
-### 1) Install emoncms on your backup machine following the guide here: 
+### Backing up your emoncms.org account (or other remote server account)
+
+**(Optional) To view your data on the backup computer install emoncms on your backup computer following the guide here:**
 
 [http://emoncms.org/site/docs/installlinux](http://emoncms.org/site/docs/installlinux)
 
 Create an account and note down your mysql credentials.
 
-### 2) Download the usefulscripts repository
 
-[https://github.com/emoncms/usefulscripts](https://github.com/emoncms/usefulscripts)
+1) Download the usefulscripts repository: [https://github.com/emoncms/usefulscripts](https://github.com/emoncms/usefulscripts)
 
-There are two scripts available under usefulscripts/replication
+2) Open Backup/backup.php in a text editor. 
 
-    import_full.php
-    import_inputs.php
+- Set $remote_server and $remote_apikey to correspond to the remote emoncms account you wish to download from.
+- Set $link\_to\_local\_emoncms to true if you wish to access your data within a local installation of emoncms. Set $local\_emoncms\_location and $local\_emoncms\_userid to link to your local emoncms installation.
+- Set $link\_to\_local\_emoncms to false if you just want to download the data without linking to a local emoncms install (non-mysql data only). Set $dir to the directory on your computer you wish to download the data. Manually create the folders: phpfina, phpfiwa, phptimeseries, phptimestore within this folder.
 
-### 3) Importing inputs
+3) Run the backup script from terminal with:
 
-Open to edit import_inputs.php. Set your mysql database name, username and password, the same credentials as for the settings.php step of the emoncms installation. Set the $server variable to the location of the raspberrypi or emoncms.org account you want to backup and set the $apikey to the write apikey of that account.
+    php backup.php
 
-In terminal, goto the usefulscripts/replication directory. Run import_inputs.php:
+Tested with emoncms.org (v8.0.9: 4 July 2014), and local emoncms v8.2.8
 
-    php import_inputs.php
+That's it, it should now work through all your feeds. When you first run this script it can take a long time. When you run this script again it will only download the most recent data and so will complete much faster.
 
-If successful you should now see your input list and all input processing information backed up in your local emoncms account.
-
-### 4) Backup all feed data:
-
-As for importing inputs open import_full.php and set the database credentials and remote emoncms account details.
-
-Run the backup script with sudo
-
-    sudo php import_full.php
-
-That's it, it should now work through all your feeds whether mysql or timestore making a local backup. When you first run this script it can take a long time. When you run this script again it will only download the most recent data and so will complete much faster.
-
-### Approach 2
+### Backing up a full emoncms installation (raspberrypi install or your own server)
 
 Start by making a backup of your emoncms data and emoncms application folder.
 
