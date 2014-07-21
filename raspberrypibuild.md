@@ -1,4 +1,6 @@
-# Emoncms on the Raspberry PI - Build from scratch
+# Archived emoncms raspberrypi sd card build
+
+Replaced buy new low write SD Card optimised version see: [https://github.com/emoncms/emoncms/tree/bufferedwrite](https://github.com/emoncms/emoncms/tree/bufferedwrite)
 
 <div class="alert alert-info"><b>Ready to go image: </b>
 There is a pre-compiled image of the following available here
