@@ -1,4 +1,8 @@
-## Emoncms on the RaspberryPI: Partitioned SD Card (Experimental)
+### Archived
+
+Replaced with [https://github.com/emoncms/emoncms/tree/bufferedwrite](https://github.com/emoncms/emoncms/tree/bufferedwrite)
+
+### Emoncms on the RaspberryPI: Partitioned SD Card (Experimental)
 
 <div class="alert alert-info">
 <p>This guide details how to build the full software stack for running emoncms on the raspberry pi.</p>

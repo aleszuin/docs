@@ -1,4 +1,8 @@
-# Raspberry Pi + Harddrive + Emoncms
+### Archived
+
+Replaced with [https://github.com/emoncms/emoncms/tree/bufferedwrite](https://github.com/emoncms/emoncms/tree/bufferedwrite) which although aimed at SD cards can also be used with a harddrive with only a small change, see documentation linked from the page above.
+
+### Raspberry Pi + Harddrive + Emoncms
 
 ![](files/pihdsetup.jpg)
 

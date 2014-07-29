@@ -1,3 +1,9 @@
+## Emoncms development
+
+- [Emoncms Github](http://github.com/emoncms)
+- [OpenEnergyMonitor software forums](http://openenergymonitor.org/emon/forum/5)
+- [OpenEnergyMonitor Labs page](http://openenergymonitor.org/emon/labs)
+
 ## Web App (Emoncms)
 
 - [Emoncms architecture](architecture)
@@ -8,6 +14,7 @@
 - [Variable interval time series](https://github.com/openenergymonitor/documentation/blob/master/BuildingBlocks/TimeSeries/variableinterval.md)
 - [Fixed interval time series](https://github.com/openenergymonitor/documentation/blob/master/BuildingBlocks/TimeSeries/fixedinterval.md)
 - [Fixed interval with averaging time series](https://github.com/openenergymonitor/documentation/blob/master/BuildingBlocks/TimeSeries/fixedintervalaveraging.md)
+- [Improving write performance with buffering](https://github.com/openenergymonitor/documentation/blob/master/BuildingBlocks/TimeSeries/writeloadinvestigation.md)
 
 ## Android App
 

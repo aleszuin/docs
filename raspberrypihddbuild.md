@@ -1,4 +1,8 @@
-## Emoncms + RaspberryPI + Hard drive build notes
+### Archived
+
+Replaced with [https://github.com/emoncms/emoncms/tree/bufferedwrite](https://github.com/emoncms/emoncms/tree/bufferedwrite)
+
+### Emoncms + RaspberryPI + Hard drive build notes
 
 **Ready-to-image:** A ready to go image is available here [http://emoncms.org/site/docs/raspberrypihdd](http://emoncms.org/site/docs/raspberrypihdd)
 

@@ -1,9 +1,8 @@
-## Emoncms on the Raspberry PI - Ready-to-go image
+### Archived
 
-Note: this is the 'old' Raspberry Pi image based on Raspbian running a full emoncms server. It was found that over time running a full server and logging data locally onto the SD card wore out the SD card in a few months. The solution we have implemented is to use a read-only file systrem with a forwarding script direct to emoncms.org. 
-See here for documentation and download page for this 'new' [Gateway SD card image](http://emoncms.org/site/docs/raspberrypigateway). 
-For background info read our [blog post](http://openenergymonitor.blogspot.com/2013/09/raspberrypi-sd-cards-hdd-gateway.html) discussing the options and introducing the change
+Replaced with [https://github.com/emoncms/emoncms/tree/bufferedwrite](https://github.com/emoncms/emoncms/tree/bufferedwrite)
 
+### Emoncms on the Raspberry PI - Ready-to-go image
 
 #### 1) Download the ready-to-go SD card image:
 <br>
