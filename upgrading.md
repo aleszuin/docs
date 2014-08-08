@@ -92,7 +92,7 @@ If you cannot see any of your data in the new installation:
 2) if you where using timestore to store your feed data check that the adminkey is entered correctly in settings.php
 3) if you already have redis installed, try reseting redis with:
         
-    $ redsi-cli and then: flushall
+    $ redis-cli and then: flushall
 
 4) Make a note of any errors that you see, check if there are any errors in your browser's console window. Check that data is still coming in and viewable in your old emoncms installation. Post on the forums with information on the errors that you see and we can try to help.
 
